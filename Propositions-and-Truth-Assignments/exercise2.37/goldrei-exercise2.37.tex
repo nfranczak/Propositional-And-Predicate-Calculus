@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+2.37 Suppose that $\phi \equiv \phi^{'}$ and $\psi \equiv \psi^{'}$. Show each of the following.
+
+(a) $\neg\phi \equiv \neg\phi^{'}$
+
+(b) $(\phi \land \psi) \equiv (\phi^{'} \land \psi^{'})$
+
+(c) $(\phi \lor \psi) \equiv (\phi^{'} \lor \psi^{'})$
+
+(d) $(\phi \to \psi) \equiv (\phi^{'} \to \psi^{'})$
+
+(e) $(\phi \iff \psi) \equiv (\phi^{'} \iff \psi^{'})$
+
+\begin{proof}[Proof of (a)]
+    Let $v$ be any truth assignment.
+
+    Suppose $v(\neg\phi) = F$, so that $v(\phi) = T$. Since $\phi \equiv \phi^{'}$, $v(\phi) = T = v(\phi^{'})$ so that $v(\neg\phi^{'}) = F$. Similarly, we can show that if $v(\neg\phi^{'}) = F$, then $v(\neg\phi) = F$. Thus for all truth assignments $v$, $v(\neg\phi) = F$ if and only if $v(\neg\phi^{'}) = F$, so that $\neg\phi \equiv \neg\phi^{'}$.
+\end{proof}
+
+\begin{proof}[Proof of (b)]
+    Let $v$ be any truth assignment.
+
+    Suppose $v((\phi \land \psi)) = T$, so that $v(\phi) = v(\psi) = T$. We then have $v(\phi^{'}) = v(\phi) = T$ as $(\phi \equiv \phi^{'})$ and $v(\psi^{'}) = v(\psi) = T$ as $(\psi \equiv \psi^{'})$, so that $v((\phi^{'} \land \psi^{'})) = T$. Similarly we can show that if $v((\phi^{'} \land \psi^{'})) = T$, then $v((\phi \land \psi)) = T$. Thus for all truth assignments $v$, $v((\phi \land \psi)) = T$ if and only if $v((\phi^{'} \land \psi^{'})) = T$, so that $(\phi \land \psi) \equiv (\phi^{'} \land \psi^{'})$.
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+    Let $v$ be any truth assignment.
+
+    Suppose $v((\phi \lor \psi)) = F$, so that $v(\phi) = v(\psi) = F$. We then have $v(\phi^{'}) = v(\phi) = F$ as $(\phi \equiv \phi^{'})$ and $v(\psi^{'}) = v(\psi) = F$ as $(\psi \equiv \psi^{'})$, so that $v((\phi^{'} \lor \psi^{'})) = F$. Similarly we can show that if $v((\phi^{'} \lor \psi^{'})) = F$, then $v((\phi \lor \psi)) = F$. Thus for all truth assignments $v$, $v((\phi \lor \psi)) = F$ if and only if $v((\phi^{'} \lor \psi^{'})) = F$, so that $(\phi \lor \psi) \equiv (\phi^{'} \lor \psi^{'})$.
+\end{proof}
+
+\begin{proof}[Proof of (d)]
+    Let $v$ be any truth assignment.
+
+    Suppose $v((\phi \to \psi)) = F$, so that $v(\phi) = T$ and $v(\psi) = F$. We then have $v(\phi^{'}) = v(\phi) = T$ as $(\phi \equiv \phi^{'})$ and $v(\psi^{'}) = v(\psi) = F$ as $(\psi \equiv \psi^{'})$, so that $v((\phi^{'} \to \psi^{'})) = F$. Similarly we can show that if $v((\phi^{'} \to \psi^{'})) = F$, then $v((\phi \to \psi)) = F$. Thus for all truth assignments, $v$, $v((\phi \to \psi)) = F$ if and only if $v((\phi^{'} \to \psi^{'})) = F$, so that $(\phi \to \psi) \equiv (\phi^{'} \to \psi^{'})$.
+\end{proof}
+
+\begin{proof}[Proof of (e)]
+    Let $v$ be any truth assignment.
+
+    Suppose $v((\phi \iff \psi)) = F$. Since the truth table of $\iff$ is symmetric, WLOG let $v(\phi) = T$ and $v(\psi) = F$. We then have $v(\phi^{'}) = v(\phi) = T$ as $(\phi \equiv \phi^{'})$ and $v(\psi^{'}) = v(\psi) = F$ as $(\psi \equiv \psi^{'})$, so that $v((\phi^{'} \iff \psi^{'})) = F$. Similarly we can show that if $v((\phi^{'} \iff \psi^{'})) = F$ then $v((\phi \iff \psi)) = F$. Thus for all truth assignments, $v$, $v((\phi \iff \psi)) = F$ if and only if $v((\phi^{'} \iff \psi^{'})) = F$, so that $(\phi \iff \psi) \equiv (\phi^{'} \iff \psi^{'})$.
+\end{proof}
+
+
+
+\end{document}
+
