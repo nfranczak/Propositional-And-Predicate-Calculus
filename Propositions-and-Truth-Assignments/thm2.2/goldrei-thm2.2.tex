@@ -1,0 +1,160 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+\textbf{Theorem 2.2}:
+
+Let $P$ be the set of propositional variables, let $S$ be the set of connectives $\{ \neg, \land, \lor, \rightarrow, \leftrightarrow \}$ and let $v: P \longrightarrow \{ T, F \}$ be a function. Then there is a unique truth assignment $\bar{v}: Form(P, S) \longrightarrow \{ T, F \}$ such that $\bar{v}(p) = v(p)$ for all $p \in P$. (i.e. $\bar{v} \mid_{P} = v$, that is $\bar{v}$ restricted to $P$).
+
+\begin{proof}
+    \textbf{Existence} of $\bar{v}$ is established by defining it by recursion on the length of a formula. We exploit the fact that a formula is composed of subformulas of shorter length, with propositional variables as the basic building blocks of length 0.
+
+    Consider an arbitrary formula of length 0. Such a formula can only be a propositional variable $p \in P$. So define $\bar{v}(p)$ to be $v(p)$.
+
+    Suppose $\bar{v}(\phi)$ has been defined for all formulas of length $\leq n$.
+
+    Let $\phi$ be a formula of length $n + 1$. Since $n + 1 > 0$ we know that $\phi$ has a principal connective which is unique. Therefore $\phi$ is of exactly one of the forms $\neg \theta$, $(\theta \land \psi)$, $(\theta \lor \psi)$, $(\theta \rightarrow \psi)$, $(\theta \leftrightarrow \psi)$, with the subformula $\theta$ (and $\psi$) uniquely determined.
+    
+    Suppose that $\phi = \neg \theta$. Since $\theta$ has length $\leq n$, $\bar{v}(\theta)$ has already been defined. Define:
+    $\bar{v}(\neg \theta) = \begin{cases}
+        T & \text{if }  \bar{v}(\theta) = F\\
+        F & \text{if }  \bar{v}(\theta) = T
+    \end{cases}$.
+    
+    Suppose that $\phi$ takes on one of the other forms. Since $\theta$ and $\psi$ have length $\leq n$, $\bar{v}(\theta)$ and $\bar{v}(\psi)$ have already been defined.
+    
+    If the principal connective is $\land$, define:
+    $\bar{v}((\theta \land \psi)) = \begin{cases}
+        T & \text{if }  \bar{v}(\theta) = \bar{v}(\psi) = T\\
+        F & \text{otherwise}
+    \end{cases}$.
+    
+    If the principal connective is $\lor$, define:
+    $\bar{v}((\theta \lor \psi)) = \begin{cases}
+        F & \text{if }  \bar{v}(\theta) = \bar{v}(\psi) = F\\
+        T & \text{otherwise}
+    \end{cases}$.
+    
+    If the principal connective is $\rightarrow$, define:
+    $\bar{v}((\theta \rightarrow \psi)) = \begin{cases}
+        F & \text{if }  \bar{v}(\theta) = T \text{ and }\bar{v}(\psi) = F\\
+        T & \text{otherwise}
+    \end{cases}$.
+    
+    If the principal connective is $\leftrightarrow$, define:
+    $\bar{v}((\theta \leftrightarrow \psi)) = \begin{cases}
+        T & \text{if }  \bar{v}(\theta) = \bar{v}(\psi)\\
+        F & \text{otherwise}
+    \end{cases}$.
+
+    Since $\phi$ is of exactly one of these forms, with $\theta$ (and $\psi$) uniquely determined, exactly one clause applies to $\phi$ and specifies one value, so $\bar{v}(\phi)$ is well defined. By the recursion principle, this defines $\bar{v}(\phi)$ for every formula $\phi$, yielding a function $\bar{v}: Form(P, S) \longrightarrow \{ T, F \}$. By the base clause, $\bar{v}(p) = v(p)$ for all $p \in P$; and since each clause above is precisely the condition for respecting the truth table of its connective, $\bar{v}$ is a truth assignment.
+\end{proof}
+
+
+
+\newpage
+ALTERNATIVE PROOF
+\paragraph{Setup.}
+Let $P$ be a set of propositional variables and $S = \{\neg, \land, \lor, \rightarrow, \leftrightarrow\}$. Throughout, $\square$ ranges over the binary connectives $\land, \lor, \rightarrow, \leftrightarrow$. We use unique readability (Section 2.2): every formula in $Form(P, S)$ is of exactly one of the forms (i) a propositional variable $p \in P$, (ii) $\neg\theta$, (iii) $(\theta \square \psi)$, and in cases (ii) and (iii) the principal connective and the immediate subformulas $\theta$ (and $\psi$) are uniquely determined.
+
+\begin{theorem}[Recursion Theorem for $Form(P,S)$]
+Let $P$ be countable, let $Y$ be a set, and let $f_0 \colon P \to Y$, $f_{\neg} \colon Y \to Y$ and, for each binary connective $\square$, $f_{\square} \colon Y \times Y \to Y$ be functions. Then there is a unique function $G \colon Form(P, S) \to Y$ such that
+\begin{itemize}
+    \item[(R0)] $G(p) = f_0(p)$ for all $p \in P$;
+    \item[(R1)] $G(\neg\phi) = f_{\neg}(G(\phi))$ for all $\phi \in Form(P, S)$;
+    \item[(R2)] $G((\phi \square \psi)) = f_{\square}(G(\phi), G(\psi))$ for all
+    $\phi, \psi \in Form(P, S)$ and all binary $\square$.
+\end{itemize}
+\end{theorem}
+
+Nothing about truth appears here: this is a purely syntactic fact about $Form(P, S)$. Theorem 2.2 is the instance $Y = \{T, F\}$ (Corollary below); other compositional definitions, such as the length function, are other instances (Remark 3).
+
+\begin{lemma}[Subformula-respecting enumeration]
+If $P$ is nonempty and countable, then there is an enumeration $\phi_0, \phi_1, \phi_2, \dots$ of $Form(P, S)$, without repetitions, in which every formula occurs after its immediate subformulas; that is,
+\begin{itemize}
+    \item[(E1)] if $\phi_n = \neg\phi_i$ then $i < n$;
+    \item[(E2)] if $\phi_n = (\phi_i \square \phi_j)$ then $i, j < n$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+Formulas are finite strings over the countable alphabet $P \cup S \cup \{(, )\}$, so $Form(P, S)$ is countable; and it is infinite, since $p, \neg p, \neg\neg p, \dots$ are distinct formulas for any $p \in P$. Fix any enumeration $\psi_0, \psi_1, \psi_2, \dots$ of $Form(P, S)$. Build a new list in stages: at stage $k$, append those subformulas of $\psi_k$ that have not yet been listed, in order of increasing length. Each formula has only finitely many subformulas, so each stage appends finitely many entries; no formula is appended twice; and every formula $\psi$, being a subformula of itself, is listed by the end of stage $k$ where $\psi = \psi_k$. So the new list is an enumeration of $Form(P, S)$ without repetitions. For (E1) and (E2): suppose $\chi$ is appended at stage $k$ and let $\theta$ be an immediate subformula of $\chi$. Then $\theta$ is a subformula of $\psi_k$ (being a subformula of $\chi$, which is a subformula of $\psi_k$) of strictly smaller length than $\chi$, so $\theta$ was listed at an earlier stage or appended earlier within stage $k$. Either way $\theta$ precedes $\chi$ in the list.
+\end{proof}
+
+\begin{proof}[Proof of the Recursion Theorem]
+\textbf{Existence.} If $P = \varnothing$ then $Form(P, S) = \varnothing$ and the empty function is the required $G$; so suppose $P \neq \varnothing$ and fix an enumeration $\phi_0, \phi_1, \phi_2, \dots$ as in the Lemma. Write $D_n = \{\phi_i \mid i < n\}$, so that $D_0 = \varnothing$ and $D_{n+1} = D_n \cup \{\phi_n\}$. By recursion on $n \in \mathbb{N}$ we define functions $G_n \colon D_n \to Y$.
+
+Let $G_0 = \varnothing$, the empty function. Given $G_n \colon D_n \to Y$, let
+\[
+y_n =
+\begin{cases}
+    f_0(\phi_n) & \text{if } \phi_n \in P,\\
+    f_{\neg}(G_n(\phi_i)) & \text{if } \phi_n = \neg\phi_i,\\
+    f_{\square}(G_n(\phi_i), G_n(\phi_j)) & \text{if } \phi_n = (\phi_i \square \phi_j),
+\end{cases}
+\]
+and define $G_{n+1} = G_n \cup \{(\phi_n, y_n)\}$.
+
+This is legitimate. By unique readability, exactly one of the three cases applies to $\phi_n$, and in the last two the immediate subformulas; hence, as the enumeration has no repetitions, the indices $i$ (and $j$) --- are uniquely determined. By (E1) and (E2) these indices are $< n$, so $\phi_i, \phi_j \in D_n = \operatorname{dom}(G_n)$ and the displayed values exist. Thus $y_n$ is a single, well-defined element of $Y$. Since $\phi_n \notin D_n$, the set $G_{n+1}$ is a function with domain $D_{n+1}$, and $G_n \subseteq G_{n+1}$ by construction, so the $G_n$ form a chain.
+
+Let $G = \bigcup_{n \in \mathbb{N}} G_n$. Then:
+\begin{itemize}
+    \item $G$ is a function: if $(\phi, y), (\phi, y') \in G$ then both pairs lie in a common $G_m$, which is a function, so $y = y'$. Moreover each $G_n \subseteq G$, so $G(\phi_i) = G_n(\phi_i)$ whenever $i < n$. \item $\operatorname{dom}(G) = Form(P, S)$: every formula is $\phi_n$ for some $n$, hence lies in $D_{n+1} \subseteq \operatorname{dom}(G)$. 
+    \item $G$ satisfies (R0)--(R2). For (R0): if $p \in P$ then $p = \phi_n$ for some $n$, the first case applied at stage $n$, and so $G(p) = y_n = f_0(p)$. For (R1): given $\phi$, we have $\neg\phi = \phi_n$ for some $n$, and $\phi = \phi_i$ for the unique $i$ given by unique readability, with $i < n$ by (E1); the second case applied at stage $n$, so $G(\neg\phi) = y_n = f_{\neg}(G_n(\phi_i)) = f_{\neg}(G(\phi))$. (R2) is proved in the same way using (E2).
+\end{itemize}
+
+\textbf{Uniqueness.} (No countability of $P$ is needed here.) Suppose
+$G, H \colon Form(P, S) \to Y$ both satisfy (R0)--(R2), and let
+\[
+X = \{\phi \in Form(P, S) \mid G(\phi) = H(\phi)\}
+\]
+be their agreement set. Then $P \subseteq X$, since$G(p) = f_0(p) = H(p)$ for all $p \in P$ by (R0). $X$ is closed under $\neg$: if $\phi \in X$ then $G(\neg\phi) = f_{\neg}(G(\phi)) = f_{\neg}(H(\phi)) = H(\neg\phi)$, so $\neg\phi \in X$. And $X$ is closed under each binary $\square$: if $\phi, \psi \in X$ then $G((\phi \square \psi)) = f_{\square}(G(\phi), G(\psi)) = f_{\square}(H(\phi), H(\psi)) = H((\phi \square \psi))$, so $(\phi \square \psi) \in X$. Now $Form(P, S)$ is, by its inductive definition, the smallest set of strings that contains $P$ and is closed under the formula-building operations $\theta \mapsto \neg\theta$ and $(\theta, \psi) \mapsto (\theta \square \psi)$; and $X$ is such a set, so $Form(P, S) \subseteq X$. Since also $X \subseteq Form(P, S)$, we get $X = Form(P, S)$: the functions $G$ and $H$ have the same domain and agree at every element of it, so $G = H$.
+\end{proof}
+
+\begin{corollary}[Theorem 2.2]
+Let $P$ be a countable set of propositional variables and let $v \colon P \to \{T, F\}$ be a function. Then there is a unique truth assignment $\bar{v} \colon Form(P, S) \to \{T, F\}$ such that $\bar{v}(p) = v(p)$ for all $p \in P$. (Remark 2 removes the countability hypothesis.)
+\end{corollary}
+
+\begin{proof}
+Apply the Recursion Theorem with $Y = \{T, F\}$, $f_0 = v$, and the truth-table functions: $f_{\neg}(T) = F$, $f_{\neg}(F) = T$, and, for $x, y \in \{T, F\}$,
+\[
+f_{\land}(x, y) = T \iff x = y = T, \qquad
+f_{\lor}(x, y) = F \iff x = y = F,
+\]
+\[
+f_{\rightarrow}(x, y) = F \iff (x, y) = (T, F), \qquad
+f_{\leftrightarrow}(x, y) = T \iff x = y.
+\]
+With these choices, a function $u \colon Form(P, S) \to \{T, F\}$ satisfies (R1)--(R2) if and only if $u$ respects the truth tables of all the connectives in $S$ --- the equations and the respect-conditions are the same statements read twice, that is, if and only if $u$ is a truth assignment; and $u$ satisfies (R0) if and only if $u(p) = v(p)$ for all $p \in P$. So the unique $G$ produced by the theorem is precisely the unique truth assignment extending $v$; this is $\bar{v}$.
+\end{proof}
+
+\begin{remark}
+What the proof achieves is a reduction: recursion on the structure of formulas is reduced to ordinary recursion and induction on $\mathbb{N}$ (the sequence $(G_n)_{n \in \mathbb{N}}$ is itself defined by recursion on $n$, which we take as basic). The two ingredients doing the real work are unique readability, which makes each $y_n$ single-valued, and the enumeration conditions (E1), (E2), which guarantee that the inputs $G_n(\phi_i)$, $G_n(\phi_j)$ already exist when needed.
+\end{remark}
+
+\begin{remark}
+Countability. The Lemma requires $P$ to be countable, whereas the book states Theorem 2.2 for arbitrary $P$. To remove the hypothesis, index by length instead of by list position: let $F_n$ be the set of formulas of length $\leq n$ and prove, by induction on $n$, that there is exactly one function $g_n \colon F_n \to Y$ satisfying (R0)--(R2) for all formulas in $F_n$. The restriction of any such $g_{n+1}$ to $F_n$ satisfies the same conditions there (immediate subformulas of a formula in $F_n$ lie in $F_n$), so equals $g_n$ by the uniqueness conjunct; hence the $g_n$ form a chain and $G = \bigcup_n g_n$ is as required. Note that the uniqueness half of the theorem, proved above by structural induction, already holds for arbitrary $P$.
+\end{remark}
+
+\begin{remark}
+Two instances worth recording. Taking $Y = \mathbb{N}$, $f_0(p) = 0$, $f_{\neg}(m) = m + 1$ and $f_{\square}(m, k) = m + k + 1$ produces the length function (number of connectives) used throughout. And unwinding the Corollary: extension $v \mapsto \bar{v}$ and restriction $u \mapsto u|_P$ are mutually inverse bijections between the set of all functions $P \to \{T, F\}$ and the set of all truth assignments on $Form(P, S)$.
+\end{remark}
+
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+2.35 Show each of following, for all formulas $\phi, \psi, \theta$.
+
+(a) $\phi \equiv \phi$
+
+(b) If $\phi \equiv \psi$ then $\psi \equiv \phi$.
+
+(c) If $\phi \equiv \psi$ and $\psi \equiv \theta$, then $\phi \equiv \theta$.
+
+\begin{proof}[Proof of (a)]
+    Let $v$ be any truth assignment. Then $v(\phi) = v(\phi)$ so $\phi \equiv \phi$.
+\end{proof}
+
+\begin{proof}[Proof of (b)]
+    Suppose $\phi \equiv \psi$, by definition we then have $v(\phi) = v(\psi)$ for all truth assignments $v$. So then it is also true that $v(\psi) = v(\phi)$ for all truth assignments $v$. Thus, $\psi \equiv \phi$.
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+    Suppose $\phi \equiv \psi$ and $\psi \equiv \theta$. By definition, $v(\phi) = v(\psi)$ and $v(\psi) = v(\theta)$ for all truth assignments $v$. So then it is also true that $v(\phi) = v(\theta)$ for all truth assignments $v$ and so $\phi \equiv \theta$.
+\end{proof}
+
+2.34 Show that $\phi \equiv \psi$ if and only if $(\phi \iff \psi)$ is a tautology, for all formulas $\phi, \psi$.
+
+\begin{proof}
+    ($\Rightarrow$):
+    Suppose $\phi \equiv \psi$. By definition for all truth assignments, $v$, $v(\phi) = v(\psi)$. Let $v$ be any truth assignment. Then $v(\phi) = v(\psi)$, so by the truth table for $\iff$ $v((\phi \iff \psi)) = T$. Since $v$ was arbitrary, $(\phi \iff \psi)$ is a tautology.
+
+    ($\Leftarrow$):
+    Suppose $(\phi \iff \psi)$ is a tautology. Then for any truth assignment $v$, we have $v((\phi \iff \psi)) = T$. The truth table shows $\iff$ takes value $T$ only when both sides agree. Hence $v(\phi) = v(\psi)$. Since $v$ was arbitrary, $\phi \equiv \psi$.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+Suppose that we are given a set $S$ of truth assignments with an odd numbers of elements. Let $D$ be the set of formulas of the language which a majority of truth assignments in $S$ makes true. Which of the following is always true? Give reasons for each case.
+
+(a) For an well-formed formula $\phi$, either $\phi$ or $\neg\phi$ belongs in $D$.
+
+
+This is true. Since if $\phi$ is not in $D$ that means that less than half of the truth assignments of $S$ make $\phi$ true. Therefore $\neg\phi$ results in more than half (since $S$ has odd size) of the truth assignments giving $\neg\phi$ a true truth value and granting it entry to $D$.
+
+(b) If $\phi$ belongs in $D$ and $(\phi \to \theta)$ is a tautology, then $\theta$ belongs to $D$.
+
+Suppose that more than half of the truth assignments in $S$ make $\phi$ true, so that $\phi \in D$.
+Suppose that $(\phi \to \theta)$ is a tautology so all truth assignments in $D$ make $(\phi \to \theta)$ true.
+Then the truth assignments of $S$ which make $\phi$ truth must also make $\theta$ true granting it entry to $D$. So, (b) is true.
+
+(c) If $\phi$ and $(\phi \to \theta)$, belong to $D$, then $\theta$ belongs to $D$.
+
+Suppose $\phi$ and $(\phi \to \theta)$, belong to $D$.
+That means that the majority of truth assignments in $S$ make $\phi$ and $(\phi \to \theta)$ true.
+
+
+[scratch]
+suppose s has 9 elements
+
+5 make $\phi$ true and 5 make $(\phi \to \theta)$ true
+But suppose that the 4 of the 5 truth assignments that make $\phi$ true make $\theta$ false
+So only in one truth assignment are both $\phi$ and $\theta$ true.
+In the remaining suppose both $\phi$ and $\theta$ are false.
+
+\end{document}

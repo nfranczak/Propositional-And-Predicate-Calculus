@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+
+\begin{document}
+
+\begin{bookthm}{2.4}
+    The following are logical equivalences.
+    \begin{enumerate}[label=\textup{(\alph*)}]
+    \item $(\phi \to \psi) \equiv (\neg\phi \lor \psi) \equiv \neg(\phi \land \neg\psi) \equiv (\neg\psi \to \neg\phi)$
+    \item $(\phi \iff \psi) \equiv ((\phi \to \psi) \land (\psi \to \phi))$
+    \end{enumerate}
+\end{bookthm}
+
+\begin{proof}[Proof of (a)]
+    We prove the three adjacent equivalences in turn and then chain them.
+
+    \medskip\noindent
+    \textbf{Claim 1:} $(\phi \to \psi) \equiv (\neg\phi \lor \psi)$.
+
+    \smallskip\noindent
+    Let $v$ be any truth assignment.
+
+    \smallskip\noindent
+    ($\Rightarrow$)\enspace
+    Suppose $v((\phi \to \psi)) = F$. Then $v(\phi) = T$ and $v(\psi) = F$,
+    so that $v(\neg\phi) = F$ and hence $v((\neg\phi \lor \psi)) = F$.
+
+    \smallskip\noindent
+    ($\Leftarrow$)\enspace
+    Suppose $v((\neg\phi \lor \psi)) = F$. Then $v(\neg\phi) = F$ and
+    $v(\psi) = F$, so that $v(\phi) = T$ and hence $v((\phi \to \psi)) = F$.
+
+    \smallskip
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the
+    forwards direction proves
+    \[
+        v((\neg\phi \lor \psi)) = T \;\Rightarrow\; v((\phi \to \psi)) = T,
+    \]
+    while the contrapositive of the backwards direction proves
+    \[
+        v((\phi \to \psi)) = T \;\Rightarrow\; v((\neg\phi \lor \psi)) = T.
+    \]
+    Therefore $v((\phi \to \psi)) = F \iff v((\neg\phi \lor \psi)) = F$ and
+    $v((\phi \to \psi)) = T \iff v((\neg\phi \lor \psi)) = T$, so that
+    $v((\phi \to \psi)) = v((\neg\phi \lor \psi))$ for every truth
+    assignment $v$. Thus $(\phi \to \psi) \equiv (\neg\phi \lor \psi)$.
+
+    % Since implication is only false under one combination of truth values for $\phi$ and $\psi$, through bivalence it implicit that when the implication, $(\phi \to \psi)$, is true that $(\neg\phi \lor \psi)$ will also be true.
+
+    % The truth table for $\lor$ demands both formulas to be false and so only yields that truth value under one possible truth assignment. Through bivalence it is implicit that when $(\neg\phi \lor \psi)$ is false that $(\phi \to \psi)$ will also be false.
+
+    \medskip\noindent
+    \textbf{Claim 2:} $(\neg\phi \lor \psi) \equiv \neg(\phi \land \neg\psi)$.
+
+    \smallskip\noindent
+    Theorem 2.3(h) provides us with the following De Morgan's Law:
+    $\neg(\phi \land \psi) \equiv (\neg\phi \lor \neg\psi)$. Treating the
+    formulas in Theorem 2.3(h) as metavariables and substituting
+    $\phi \mapsto \phi$, $\psi \mapsto \neg\psi$ uniformly on both sides,
+    we arrive at
+    \[
+        \neg(\phi \land \neg\psi) \equiv (\neg\phi \lor \neg\neg\psi).
+    \]
+    Now Theorem 2.3(g) states the law of double negation:
+    $\neg\neg\phi \equiv \phi$. Substituting $\phi \mapsto \psi$ gives
+    $\neg\neg\psi \equiv \psi$, so for every truth assignment $v$ we have
+    $v(\neg\neg\psi) = v(\psi)$. By the truth table for $\lor$ it follows
+    that $v((\neg\phi \lor \neg\neg\psi)) = v((\neg\phi \lor \psi))$ for
+    every $v$, so that
+    \[
+        (\neg\phi \lor \neg\neg\psi) \equiv (\neg\phi \lor \psi).
+    \]
+    Chaining the two displayed equivalences by Exercise 2.35(c) and
+    reversing the result by Exercise 2.35(b), we conclude that
+    $(\neg\phi \lor \psi) \equiv \neg(\phi \land \neg\psi)$.
+
+    \medskip\noindent
+    \textbf{Claim 3:} $\neg(\phi \land \neg\psi) \equiv (\neg\psi \to \neg\phi)$.
+
+    \smallskip\noindent
+    Let $v$ be any truth assignment.
+
+    \smallskip\noindent
+    ($\Rightarrow$)\enspace
+    Suppose $v(\neg(\phi \land \neg\psi)) = F$. Then
+    $v((\phi \land \neg\psi)) = T$, so $v(\phi) = T$ and $v(\neg\psi) = T$,
+    so that $v(\neg\phi) = F$ and hence $v((\neg\psi \to \neg\phi)) = F$.
+
+    \smallskip\noindent
+    ($\Leftarrow$)\enspace
+    Suppose $v((\neg\psi \to \neg\phi)) = F$. Then $v(\neg\psi) = T$ and
+    $v(\neg\phi) = F$, so that $v(\phi) = T$, hence
+    $v((\phi \land \neg\psi)) = T$ and $v(\neg(\phi \land \neg\psi)) = F$.
+
+    \smallskip
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the
+    forwards direction proves
+    \[
+        v((\neg\psi \to \neg\phi)) = T \;\Rightarrow\; v(\neg(\phi \land \neg\psi)) = T,
+    \]
+    while the contrapositive of the backwards direction proves
+    \[
+        v(\neg(\phi \land \neg\psi)) = T \;\Rightarrow\; v((\neg\psi \to \neg\phi)) = T.
+    \]
+    Hence $v(\neg(\phi \land \neg\psi)) = v((\neg\psi \to \neg\phi))$ for
+    every truth assignment $v$, and so
+    $\neg(\phi \land \neg\psi) \equiv (\neg\psi \to \neg\phi)$.
+
+    \medskip\noindent
+    Finally, since logical equivalence is transitive by Exercise 2.35(c),
+    Claims 1--3 chain together to give
+    \[
+        (\phi \to \psi) \equiv (\neg\phi \lor \psi)
+        \equiv \neg(\phi \land \neg\psi) \equiv (\neg\psi \to \neg\phi). \qedhere
+    \]
+\end{proof}
+
+\begin{proof}[Proof of (b)]
+    Let $v$ be any truth assignment.
+
+    \smallskip\noindent
+    (1)\enspace Let $v((\phi \iff \psi)) = T$. Then the truth table
+    for $\iff$ tells us that $v(\phi) = T = v(\psi)$ or
+    $v(\phi) = F = v(\psi)$. Suppose the former is true. Then
+    $v((\phi \to \psi)) = T$ and $v((\psi \to \phi)) = T$, and so
+    $v(((\phi \to \psi) \land (\psi \to \phi))) = T$. If instead
+    $v(\phi) = F = v(\psi)$, then the antecedents of both implications are
+    false, hence both implications take value $T$, and again
+    $v(((\phi \to \psi) \land (\psi \to \phi))) = T$.
+
+    \smallskip\noindent
+    (2)\enspace Let $v((\phi \iff \psi)) = F$. Then the truth table
+    for $\iff$ tells us that at most one of $\phi, \psi$ is true
+    and at most one is false, so the two remaining possibilities are
+    $v(\phi) = T, v(\psi) = F$ and $v(\phi) = F, v(\psi) = T$. Swapping
+    $\phi$ and $\psi$ interchanges these two possibilities and, by the
+    symmetry of the $\iff$ and $\land$ tables, changes neither
+    side's value; so WLOG let $v(\phi) = T$ and $v(\psi) = F$. Then
+    $v((\phi \to \psi)) = F$ and so
+    $v(((\phi \to \psi) \land (\psi \to \phi))) = F$.
+
+    \smallskip
+    Since $v$ takes only the values $T$ and $F$, cases (1) and (2) are
+    exhaustive. Hence
+    $v((\phi \iff \psi)) = v(((\phi \to \psi) \land (\psi \to \phi)))$
+    for every truth assignment $v$, so that
+    $(\phi \iff \psi) \equiv ((\phi \to \psi) \land (\psi \to \phi))$.
+\end{proof}
+
+
+\end{document}

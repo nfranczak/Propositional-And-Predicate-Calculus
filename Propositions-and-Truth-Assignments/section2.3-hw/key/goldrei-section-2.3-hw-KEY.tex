@@ -1,0 +1,941 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+
+\newcommand{\Form}{\mathrm{Form}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\F}{\mathrm{F}}
+\newcommand{\TF}{\{\T,\F\}}
+\newcommand{\ext}[1]{\overline{#1}}
+\newcommand{\Sfive}{\{\lnot,\land,\lor,\to,\leftrightarrow\}}
+\newcommand{\vars}{\mathrm{vars}}
+\newcommand{\bin}{\mathbin{\circ}}
+
+\newcommand{\solpart}[1]{\smallskip\noindent\textbf{(#1)}\ }
+
+\newcommand{\prob}[2]{\subsection*{Problem #1 --- #2}}
+
+\begin{document}
+
+\begin{center}
+{\LARGE Solutions}\\[3pt]
+{\large Problem Set: The Interpretation of Propositional Formulas}\\[2pt]
+{\large Goldrei \S 2.3, with emphasis on Theorem 2.2}
+\end{center}
+
+\bigskip
+
+\noindent\emph{How to read these.} Throughout, ``Theorem 2.2'' refers to the
+existence-and-uniqueness of the extension $\ext{v}$; when a step uses only one
+half I say which. ``Relevance'' means Problem 8(a). ``Unique readability'' is the
+\S 2.2 fact that every formula of length $\ge 1$ has a unique principal connective
+and hence a unique immediate decomposition. I write $\vars(\varphi)$ for the set
+of propositional variables occurring in $\varphi$, and for a truth assignment $v$
+I use the truth-table operations on values freely (e.g.\ $v(\lnot\theta)=\lnot
+v(\theta)$). Many later problems cite earlier ones, as the ground rules allow.
+
+\subsection*{Verdict summary (full arguments below)}
+
+\begin{tabbing}
+\hspace{3.3cm}\=\kill
+Problem 1: \> (a)~T \quad(b)~T \quad(c)~F \quad(d)~T \quad(e)~T \quad(f)~F \quad(g)~T\\[2pt]
+Problem 6(e): \> $((p\to q)\lor(q\to p))$ taut.; \ $(p\leftrightarrow\lnot p)$ contra.; \ $((p\lor q)\to p)$ neither; \ De Morgan taut.\\[2pt]
+Problem 7: \> (a)~$2^{n-2}$ \quad(b)~$2^{n-3}$ \quad(c)~$2^{n-2}$ \quad(d)~$3$\\[2pt]
+Problem 11: \> (a)~F \quad(b)~F \quad(c)~T \quad(d)~F \quad(e)~T \quad(f)~F \quad(g)~T \quad(h)~T\\[2pt]
+Problem 12: \> (a)~T \quad(b)~T \quad(c)~F \quad(d)~T \quad(e)~T \quad(f)~F\\[2pt]
+Problem 13: \> (a)~I \quad(b)~III \quad(c)~I \quad(d)~II \quad(e)~II \quad(f)~III \quad(g)~existence half\\
+\end{tabbing}
+
+\section*{Part I --- Reading Theorem 2.2}
+
+\prob{1}{Reading the theorem precisely}
+
+Assume $P\neq\varnothing$ (if $P=\varnothing$ the language is empty and every
+statement degenerates); fix a variable $p_0\in P$ for use in refutations.
+
+\solpart{a} \textbf{True.} This is exactly the existence half of Theorem 2.2:
+$w=\ext{v}$ is a truth assignment with $\ext{v}(p)=v(p)$ for all $p\in P$.
+
+\solpart{b} \textbf{True.} This is the uniqueness half of Theorem 2.2: at most one
+truth assignment agrees with $v$ on $P$. (Together with (a): exactly one.)
+
+\solpart{c} \textbf{False.} The condition constrains $w$ only on the variables in
+$P$; on every compound formula $w$ is unconstrained. Take $w_1,w_2\colon
+\Form(P,S)\to\TF$ both agreeing with $v$ on every variable, but with
+$w_1(\lnot p_0)=\T$ and $w_2(\lnot p_0)=\F$ (define them arbitrarily, but
+differently, here; e.g.\ set each equal to $\ext{v}$ except at $\lnot p_0$). Both
+satisfy ``$w(p)=v(p)$ for all $p\in P$'' since $\lnot p_0$ is not a variable, and
+$w_1\ne w_2$. So there is more than one such function; ``exactly one'' fails.
+
+\solpart{d} \textbf{True.} \emph{Existence of $v$:} put $v=w{\restriction}P$
+(the restriction of $w$ to the variables). Then $w$ is a truth assignment agreeing
+with $v$ on $P$, so by the uniqueness half of Theorem 2.2, $w=\ext{v}$.
+\emph{Uniqueness of $v$:} if $\ext{v}=w=\ext{v'}$ then for each $p\in P$,
+$v(p)=\ext{v}(p)=w(p)=\ext{v'}(p)=v'(p)$, so $v=v'$.
+
+\solpart{e} \textbf{True.} Both $u$ and $w$ are truth assignments extending the
+common function $v:=u{\restriction}P=w{\restriction}P$. By the uniqueness half of
+Theorem 2.2 there is only one such extension, so $u=w$; in particular
+$u(\varphi)=w(\varphi)$ for every $\varphi$. (This is the book's own derivation of
+``a truth assignment is determined by its values on the variables''; it is also
+Problem 8(a) taken over the full variable set.)
+
+\solpart{f} \textbf{False.} Agreeing with a truth assignment on the variables does
+not force $w$ to respect the truth tables at compound formulas. Let $u=\ext{v}$
+where $v(p_0)=\T$, so $u(\lnot p_0)=\F$. Define $w$ to equal $u$ everywhere except
+$w(\lnot p_0)=\T$. Then $w$ is a genuine function $\Form(P,S)\to\TF$ agreeing with
+$u$ on every variable (they agree at $p_0$ and at all other variables). But $w$
+violates the $\lnot$-clause at $\lnot p_0$: respecting $\lnot$ would require
+$w(\lnot p_0)=\lnot w(p_0)=\lnot\T=\F$, whereas $w(\lnot p_0)=\T$. So $w$ is not a
+truth assignment.
+
+\solpart{g} \textbf{True.} For each variable $p$, the formula $\lnot p$ has length
+$1$, so by hypothesis $u(\lnot p)=w(\lnot p)$. Since $u,w$ respect $\lnot$, this
+says $\lnot u(p)=\lnot w(p)$, hence $u(p)=w(p)$. Thus $u$ and $w$ agree on every
+variable, so by (e) (equivalently the uniqueness half of Theorem 2.2) $u=w$.
+
+\prob{2}{Extensions that are not truth assignments}
+
+Here $P=\{p\}$, $v(p)=\T$.
+
+\solpart{a} Let $f$ be the constant function $\T$ (so $f(\chi)=\T$ for every
+$\chi$). Then $f(p)=\T$, but $f$ violates the $\lnot$-clause at $\lnot p$:
+$f(\lnot p)=\T$ while respecting $\lnot$ would demand $\lnot f(p)=\F$.
+Let $g$ agree with the genuine assignment $\ext{v}$ everywhere except
+$g\big((p\land p)\big)=\F$. Then $g(p)=\ext{v}(p)=\T$, but $g$ violates the
+$\land$-clause at $(p\land p)$: since $g(p)=\T$, respecting $\land$ would require
+$g\big((p\land p)\big)=\T\land\T=\T$, whereas it is $\F$. Finally $f\neq g$: they
+disagree at $\lnot p$ (indeed $g(\lnot p)=\ext{v}(\lnot p)=\F\neq\T=f(\lnot p)$).
+
+\solpart{b} $\Form(\{p\},S)$ is infinite: $p,\lnot p,\lnot\lnot p,\lnot\lnot\lnot
+p,\dots$ are pairwise distinct formulas. For each $k\ge 1$ define
+$f_k\colon\Form(\{p\},S)\to\TF$ by $f_k(p)=\T$, $f_k(\lnot^{\,k}p)=\T$, and
+$f_k(\chi)=\F$ for all other $\chi$. Each $f_k$ extends $v$ (value $\T$ at $p$),
+and $f_j\ne f_k$ for $j\ne k$ (they differ at $\lnot^{\,j}p$). So there are
+infinitely many functions extending $v$. (Almost none are truth assignments; the
+problem asks only for functions.)
+
+\solpart{c} \textbf{Exactly one}, by the uniqueness half of Theorem 2.2. The
+freedom exhibited in (b) is freedom among arbitrary functions; requiring the
+extension to respect the truth tables collapses it to a single assignment.
+
+\solpart{d} Let $\mathcal{A}$ be the set of truth assignments on $\Form(P,S)$ and
+$\mathcal{V}$ the set of functions $P\to\TF$. Define
+$\rho\colon\mathcal{A}\to\mathcal{V}$ by $\rho(w)=w{\restriction}P$ and
+$E\colon\mathcal{V}\to\mathcal{A}$ by $E(v)=\ext{v}$ (well-defined into
+$\mathcal{A}$ by the existence half of Theorem 2.2).
+\emph{$\rho\circ E=\mathrm{id}$:} $\rho(E(v))=\ext{v}{\restriction}P=v$, since
+$\ext{v}(p)=v(p)$ for all $p\in P$.
+\emph{$E\circ\rho=\mathrm{id}$:} $E(\rho(w))=\overline{w{\restriction}P}$; but $w$
+is a truth assignment extending $w{\restriction}P$, so by the uniqueness half of
+Theorem 2.2 the unique such extension is $w$ itself, i.e.\
+$\overline{w{\restriction}P}=w$.
+Being mutually inverse, $\rho$ and $E$ are bijections. Hence if $|P|=n$ then
+$|\mathcal{A}|=|\mathcal{V}|=|\TF|^{\,|P|}=2^n$ (cf.\ Exercise 2.19).
+
+\prob{3}{What unique readability is for}
+
+$\sigma$ is the bracket-free string $p\land q\lor r$.
+
+\solpart{a} Two construction trees:
+\[
+T_1:\ (p\land q)\lor r
+\qquad\text{(root }\lor\text{, children }p\land q\text{ and }r),
+\]
+\[
+T_2:\ p\land(q\lor r)
+\qquad\text{(root }\land\text{, children }p\text{ and }q\lor r).
+\]
+As \emph{strings} both spell $p\land q\lor r$: concatenating $p\land q$, $\lor$,
+$r$ gives $\sigma$, and so does concatenating $p$, $\land$, $q\lor r$. Same string,
+two different trees.
+
+\solpart{b} With $v(p)=\F$, $v(q)=v(r)=\T$:
+\[
+T_1:\quad p\land q\mapsto \F\land\T=\F,\qquad \F\lor r\mapsto \F\lor\T=\T;
+\]
+\[
+T_2:\quad q\lor r\mapsto \T\lor\T=\T,\qquad p\land\T\mapsto \F\land\T=\F.
+\]
+So the same string receives value $\T$ along $T_1$ and $\F$ along $T_2$. The
+recursive clauses therefore do not determine a single value for $\sigma$: there is
+no well-defined function from pseudo-formulas to $\TF$ produced by these clauses.
+
+\solpart{c} The failing sentence is the one asserting the principal connective in
+the recursive step: Goldrei writes that a formula of length $n+1$ ``has a principal
+connective \emph{(which is unique)}, so is one of the forms $\lnot\theta$,
+$(\theta\land\psi),\dots$ where $\theta$ and $\psi$ are of length $\le n$,'' and
+then defines the value ``using the appropriate row of the truth table for its
+principal connective.'' For pseudo-formulas this uniqueness fails: $\sigma$ has
+\emph{two} principal connectives ($\lor$ via $T_1$, $\land$ via $T_2$) and two
+decompositions into $(\theta,\psi)$. So ``the appropriate row for its principal
+connective'' is not well specified --- there are two, giving two candidate values.
+In genuine $\Form(P,S)$, unique readability guarantees exactly one principal
+connective and one decomposition, so the recursive rule has a single output at
+each step.
+
+\solpart{d} What is threatened is the \textbf{well-definedness} of $\ext{v}$ as a
+function. Producing \emph{a} value is not the issue (each tree yields one); and
+uniqueness in the sense of Theorem 2.2 --- at most one \emph{truth assignment} ---
+is a separate, downstream question. Part (b) shows the \emph{rule}
+``$\ext{v}(\sigma):=$ the value from the decomposition of $\sigma$'' fails to
+name one value, because $\sigma$ has more than one decomposition with differing
+values. The three notions line up as a dependency chain: unique readability makes
+the recursive clauses well-defined (each formula has a unique immediate
+decomposition, so the rule has a unique output); well-definedness is what lets
+$\ext{v}$ be a function at all; and only once $\ext{v}$ is a function can one ask
+whether it exists as a truth assignment and whether it is the unique one. Removing
+unique readability breaks the very first link, which is what (b) exhibits.
+
+\prob{4}{Adding a connective}
+
+\solpart{a} $v$ \emph{respects the truth table of $\oplus$} means: for all
+$\theta,\psi\in\Form(P,S_\oplus)$,
+\[
+v\big((\theta\oplus\psi)\big)=
+\begin{cases}
+\T, & \text{if exactly one of }v(\theta),v(\psi)\text{ is }\T,\\
+\F, & \text{if }v(\theta)=v(\psi).
+\end{cases}
+\]
+
+\solpart{b} \emph{Analogue of Theorem 2.2.} Let $P$ be a set of propositional
+variables, let $S_\oplus=\{\lnot,\land,\lor,\to,\leftrightarrow,\oplus\}$, and let
+$v\colon P\to\TF$ be a function. Then there is a unique truth assignment
+$\ext{v}\colon\Form(P,S_\oplus)\to\TF$ with $\ext{v}(p)=v(p)$ for all $p\in P$
+(where ``truth assignment'' now means a function respecting the truth tables of
+all six connectives in $S_\oplus$).
+
+\solpart{c} \emph{Existence (recursion on length).} One added case in the
+recursive step: if the principal connective is $\oplus$, so $\varphi=(\theta\oplus
+\psi)$ with $\theta,\psi$ of length $\le n$, define $\ext{v}(\varphi)$ by the
+$\oplus$-row determined by $\ext{v}(\theta),\ext{v}(\psi)$. Everything else is
+unchanged. \emph{Uniqueness (induction on length).} One added case: if
+$u,w$ are truth assignments (now respecting all six tables) agreeing on the
+variables and $\varphi=(\theta\oplus\psi)$, then the induction hypothesis gives
+$u(\theta)=w(\theta)$ and $u(\psi)=w(\psi)$, and since both respect the
+$\oplus$-table, $u(\varphi)=w(\varphi)$. Otherwise unchanged.
+
+\solpart{d} The facts needed about $\Form(P,S_\oplus)$, of the kind proved for
+$\Form(P,S)$ in \S 2.2, are: (i) every formula of length $\ge 1$ has a
+\emph{unique} principal connective, and correspondingly a unique immediate
+decomposition --- either $\lnot\theta$ for a unique $\theta$, or $(\theta\bin\psi)$
+for a unique connective $\bin\in\{\land,\lor,\to,\leftrightarrow,\oplus\}$ and
+unique $\theta,\psi$ (unique readability for the enlarged language); and (ii) those
+immediate subformulas have strictly smaller length. If uniqueness of the principal
+connective failed, then in the existence proof the step ``define $\ext{v}(\varphi)$
+by the table for its principal connective'' would be ambiguous exactly as in
+Problem 3 --- a formula might decompose both as $(\theta\oplus\psi)$ and as
+$(\theta'\lor\psi')$, giving two candidate values, so $\ext{v}$ would not be
+well-defined; and in the uniqueness proof the case split on the principal
+connective would be neither exhaustive nor exclusive, so the inductive step would
+fail to pin down $u(\varphi)$.
+
+
+\section*{Part II --- Computing with truth assignments}
+
+\prob{5}{Bottom-up evaluation}
+
+Here $w(p)=\F$, $w(q)=\T$, $w(r)=\T$.
+
+\solpart{a} $w\big(((\lnot p\lor q)\to(r\land\lnot q))\big)$:
+\[
+\lnot p=\T,\quad (\lnot p\lor q)=\T\lor\T=\T,\quad \lnot q=\F,\quad
+(r\land\lnot q)=\T\land\F=\F,
+\]
+\[
+\big((\lnot p\lor q)\to(r\land\lnot q)\big)=\T\to\F=\boxed{\F}.
+\]
+
+\solpart{b} $w\big(((p\to(q\to r))\leftrightarrow\lnot(p\lor\lnot r))\big)$:
+\[
+(q\to r)=\T\to\T=\T,\quad (p\to(q\to r))=\F\to\T=\T,
+\]
+\[
+\lnot r=\F,\quad (p\lor\lnot r)=\F\lor\F=\F,\quad \lnot(p\lor\lnot r)=\T,
+\]
+\[
+\big((p\to(q\to r))\leftrightarrow\lnot(p\lor\lnot r)\big)=\T\leftrightarrow\T
+=\boxed{\T}.
+\]
+
+\solpart{c} \textbf{Determined; value $\T$.} We have
+$((q\land s)\lor r)$ with $w(r)=\T$, and $x\lor\T=\T$ for both values of $x$.
+So whatever $w(s)$ is, $(q\land s)\lor r=\T$. Every $w$ consistent with the data
+gives $\T$.
+
+\solpart{d} \textbf{Not determined.} Here $(q\land s)\land r$; with $w(q)=w(r)=\T$
+this equals $(\T\land w(s))\land\T=w(s)$, which is unconstrained. Two truth
+assignments consistent with the data:
+\[
+w_1:\ (p,q,r,s)\mapsto(\F,\T,\T,\T)\ \Rightarrow\ (q\land s)\land r=(\T\land\T)\land\T=\T,
+\]
+\[
+w_2:\ (p,q,r,s)\mapsto(\F,\T,\T,\F)\ \Rightarrow\ (q\land s)\land r=(\T\land\F)\land\T=\F.
+\]
+Both exist as truth assignments by the existence half of Theorem 2.2 (they are
+specified by consistent values on the variables), and they give different values.
+
+\solpart{e} Only $w(p)=\T$ is known.
+\begin{itemize}[nosep]
+\item $(p\lor q)$: $\T\lor w(q)=\T$ always. \textbf{Determined}, value $\T$.
+\item $(p\land q)$: $\T\land w(q)=w(q)$, unconstrained. \textbf{Not determined}
+($w(q)=\T$ gives $\T$; $w(q)=\F$ gives $\F$).
+\item $(q\to p)$: $w(q)\to\T=\T$ always. \textbf{Determined}, value $\T$.
+\item $(q\lor\lnot q)$: $w(q)\lor\lnot w(q)=\T$ always. \textbf{Determined}, value
+$\T$ (indeed independent of $p$ as well).
+\item $(q\land\lnot q)$: $w(q)\land\lnot w(q)=\F$ always. \textbf{Determined},
+value $\F$.
+\end{itemize}
+
+\prob{6}{Truth tables, concrete and schematic}
+
+\solpart{a} Table of $((p\lor\lnot q)\to(q\land r))$:
+\[
+\begin{array}{ccc|c|c|c}
+p&q&r& p\lor\lnot q & q\land r & ((p\lor\lnot q)\to(q\land r))\\\hline
+\T&\T&\T& \T&\T&\T\\
+\T&\T&\F& \T&\F&\F\\
+\T&\F&\T& \T&\F&\F\\
+\T&\F&\F& \T&\F&\F\\
+\F&\T&\T& \F&\T&\T\\
+\F&\T&\F& \F&\F&\T\\
+\F&\F&\T& \T&\F&\F\\
+\F&\F&\F& \T&\F&\F
+\end{array}
+\]
+(True in exactly the three rows $\T\T\T$, $\F\T\T$, $\F\T\F$; note the two
+$\T$'s in rows $5,6$ come from a \emph{false} antecedent.)
+
+\solpart{b} Table of $((\varphi\to\psi)\to\varphi)$ in the values of $\varphi,\psi$:
+\[
+\begin{array}{cc|c|c}
+\varphi&\psi& (\varphi\to\psi) & ((\varphi\to\psi)\to\varphi)\\\hline
+\T&\T& \T&\T\\
+\T&\F& \F&\T\\
+\F&\T& \T&\F\\
+\F&\F& \T&\F
+\end{array}
+\]
+The last column equals the $\varphi$-column in every row: $((\varphi\to\psi)\to
+\varphi)$ takes the same value as $\varphi$ under every truth assignment.
+
+\solpart{c} Realizing $(\varphi,\psi)=(\F,\T)$: take $\varphi_0=p$, $\psi_0=q$, and
+$w$ with $w(p)=\F$, $w(q)=\T$. Then $w(\varphi_0)=\F$, $w(\psi_0)=\T$, and
+\[
+w\big(((p\to q)\to p)\big):\quad (p\to q)=\F\to\T=\T,\quad (\T\to p)=\T\to\F=\F.
+\]
+So the value is $\F$, matching the row $(\F,\T)$ of (b) (whose entry equals
+$\varphi=\F$).
+
+\solpart{d} Put $\psi:=\lnot\varphi$. Under any $w$, $w(\psi)=\lnot w(\varphi)$, so
+the pair $(w(\varphi),w(\psi))$ is always $(\T,\F)$ or $(\F,\T)$: the rows $(\T,\T)$
+and $(\F,\F)$ become \textbf{unrealizable}, since they would require $w(\varphi)=
+w(\psi)=w(\varphi)=\lnot w(\varphi)$, impossible. On the surviving rows, and indeed
+on all of them, (b) gives $((\varphi\to\psi)\to\varphi)=\varphi$; hence
+$((\varphi\to\lnot\varphi)\to\varphi)$ takes the same value as $\varphi$ under every
+$w$. Therefore it is a tautology iff $\varphi$ is true under every $w$, i.e.\ iff
+$\varphi$ is a tautology; and a contradiction iff $\varphi$ is false under every
+$w$, i.e.\ iff $\varphi$ is a contradiction.
+
+\solpart{e} \emph{Classifications.}
+\begin{itemize}[nosep]
+\item $((p\to q)\lor(q\to p))$ --- \textbf{tautology.} If both disjuncts were
+false under some $w$, then $(p\to q)=\F$ gives $w(p)=\T,w(q)=\F$, while $(q\to p)=
+\F$ gives $w(q)=\T,w(p)=\F$; incompatible. So at least one disjunct is $\T$ under
+every $w$.
+\item $(p\leftrightarrow\lnot p)$ --- \textbf{contradiction.} $w(p)\leftrightarrow
+\lnot w(p)$ is $\T\leftrightarrow\F=\F$ or $\F\leftrightarrow\T=\F$.
+\item $((p\lor q)\to p)$ --- \textbf{neither.} $w(p)=\T$ gives $\T\to\T=\T$;
+$w(p)=\F,w(q)=\T$ gives $\T\to\F=\F$.
+\item $(\lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q))$ --- \textbf{tautology}
+(De Morgan). Checking the four rows: $(\T,\T)\!:\F\!\leftrightarrow\!\F=\T$;
+$(\T,\F)\!:\T\!\leftrightarrow\!\T=\T$; $(\F,\T)\!:\T\!\leftrightarrow\!\T=\T$;
+$(\F,\F)\!:\T\!\leftrightarrow\!\T=\T$.
+\end{itemize}
+
+\prob{7}{Counting assignments}
+
+Values on the ``free'' variables (those not named in the formula) may be anything,
+contributing a factor $2^{(\text{number free})}$; the named variables are pinned.
+
+\solpart{a} $(p_1\land\lnot p_2)$ is true iff $p_1=\T$ and $p_2=\F$; $p_3,\dots,
+p_n$ free. Count $=2^{n-2}$.
+
+\solpart{b} $\lnot((p_1\lor p_2)\lor p_3)$ is true iff $(p_1\lor p_2\lor p_3)=\F$
+iff $p_1=p_2=p_3=\F$; the rest free. Count $=2^{n-3}$.
+
+\solpart{c} $\lnot(p_1\to p_2)$ is true iff $(p_1\to p_2)=\F$ iff $p_1=\T,p_2=\F$;
+the rest free. Count $=2^{n-2}$.
+
+\solpart{d} $((p_1\lor p_2)\land p_3)$ with $n=3$: need $p_3=\T$ and $(p_1\lor p_2)
+=\T$. Fixing $p_3=\T$, the condition $p_1\lor p_2=\T$ excludes only $p_1=p_2=\F$,
+leaving $3$ of the $4$ patterns of $(p_1,p_2)$. Count $=3$.
+
+\section*{Part III --- Inductions on the length of a formula}
+
+\prob{8}{The relevance lemma}
+
+\solpart{a} \textbf{Claim.} If $u,w$ are truth assignments and $u(q)=w(q)$ for
+every $q\in\vars(\varphi)$, then $u(\varphi)=w(\varphi)$.
+
+\emph{Proof by induction on the length of $\varphi$.}
+\emph{Induction hypothesis:} for every formula $\theta$ of length $\le n$, if $u,w$
+agree on every variable in $\vars(\theta)$, then $u(\theta)=w(\theta)$.
+
+\emph{Base ($\varphi$ of length $0$).} Then $\varphi$ is a variable $p$, and
+$\vars(\varphi)=\{p\}$; the hypothesis gives $u(p)=w(p)$, i.e.\ $u(\varphi)=
+w(\varphi)$.
+
+\emph{Inductive step ($\varphi$ of length $n+1$).} By unique readability $\varphi$
+has one principal connective.
+\begin{itemize}[nosep]
+\item $\varphi=\lnot\theta$. Then $\vars(\varphi)=\vars(\theta)$, so $u,w$ agree on
+$\vars(\theta)$; as $\theta$ has length $n$, the IH gives $u(\theta)=w(\theta)$.
+Since $u,w$ \emph{respect $\lnot$} (used here),
+$u(\lnot\theta)=\lnot u(\theta)=\lnot w(\theta)=w(\lnot\theta)$.
+\item $\varphi=(\theta\land\psi)$. Then $\vars(\varphi)=\vars(\theta)\cup
+\vars(\psi)$, so $u,w$ agree on each of $\vars(\theta),\vars(\psi)$; both have
+length $\le n$, so the IH gives $u(\theta)=w(\theta)$ and $u(\psi)=w(\psi)$. Since
+$u,w$ \emph{respect $\land$} (used here), $u((\theta\land\psi))=u(\theta)\land
+u(\psi)=w(\theta)\land w(\psi)=w((\theta\land\psi))$.
+\item $\varphi=(\theta\to\psi)$. As above $u,w$ agree on $\vars(\theta),
+\vars(\psi)$; the IH gives $u(\theta)=w(\theta)$, $u(\psi)=w(\psi)$; since $u,w$
+\emph{respect $\to$} (used here), the value $u((\theta\to\psi))$, read off the
+$\to$-table from $(u(\theta),u(\psi))=(w(\theta),w(\psi))$, equals
+$w((\theta\to\psi))$.
+\item The cases $\lor,\leftrightarrow$ are identical, using the respective tables.
+\end{itemize}
+This closes the induction. \hfill$\square$
+
+\solpart{b} \emph{Exercise 2.18.} Suppose $v,v'$ are truth assignments agreeing at
+every variable except possibly $p$ (that is, $v(q)=v'(q)$ for all $q\neq p$), and
+let $\varphi$ be a formula (over $\{\lnot,\land,\lor\}$, as in the book) in which
+$p$ does not occur. Every $q\in\vars(\varphi)$ satisfies $q\neq p$, so $v,v'$ agree
+on all of $\vars(\varphi)$; by (a), $v(\varphi)=v'(\varphi)$. The analogue for the
+full set $S$ is immediate, since (a) was proved for $S$. (Indeed (a) is stronger:
+the two assignments may differ at \emph{any} set of variables disjoint from
+$\vars(\varphi)$, not just at a single $p$.)
+
+\solpart{c} \emph{Soundness of truth tables.} Write $V=\vars(\varphi)\subseteq
+\{p_1,\dots,p_n\}$.
+
+\emph{The bridge.} Part (a) as stated compares two assignments on a common domain.
+For soundness we need the mild variant: \emph{if $u$ is a truth assignment on
+$\Form(P,S)$ and $u'$ a truth assignment on $\Form(P',S)$ with $\vars(\varphi)
+\subseteq P\cap P'$, and $u(q)=u'(q)$ for every $q\in\vars(\varphi)$, then
+$u(\varphi)=u'(\varphi)$.} The proof is \emph{verbatim} the induction in (a): at
+each node the current subformula uses only variables in $\vars(\varphi)\subseteq
+P\cap P'$, hence lies in both $\Form(P,S)$ and $\Form(P',S)$ and the IH applies;
+the argument never uses that the two domains coincide, only that every subformula
+of $\varphi$ lives in both. This is the point the problem flags: ``agree on the
+variables of $\varphi$'' is the right hypothesis even across different domains.
+
+\emph{Soundness.} ($\Rightarrow$) If $\varphi$ is a tautology --- true under every
+truth assignment defined on any variable set containing $\vars(\varphi)$ --- then
+in particular it is true under each of the $2^n$ assignments on
+$\Form(\{p_1,\dots,p_n\},S)$.
+
+($\Leftarrow$) Suppose all $2^n$ assignments on $\Form(\{p_1,\dots,p_n\},S)$ make
+$\varphi$ true. Let $w$ be an arbitrary truth assignment on some $\Form(P,S)$ with
+$V\subseteq P$. Define $g\colon\{p_1,\dots,p_n\}\to\TF$ by $g(p_i)=w(p_i)$ when
+$p_i\in P$ and $g(p_i)=\T$ otherwise (the arbitrary choice affects only $p_i\notin
+V$, since $p_i\in V\Rightarrow p_i\in P$). By the existence half of Theorem 2.2,
+$\ext{g}$ is one of the $2^n$ assignments on $\Form(\{p_1,\dots,p_n\},S)$, so
+$\ext{g}(\varphi)=\T$ by hypothesis. Now $\ext{g}$ and $w$ agree on every
+$q\in V=\vars(\varphi)$ (for such $q=p_i\in P$ we have $\ext{g}(p_i)=g(p_i)=
+w(p_i)$), so the cross-domain bridge gives $w(\varphi)=\ext{g}(\varphi)=\T$. As $w$
+was arbitrary, $\varphi$ is a tautology.
+
+(If some $p_i\notin V$, the $2^n$ assignments simply test each genuinely relevant
+pattern $2^{\,n-|V|}$ times; the criterion is unaffected.)
+
+\prob{9}{Negating the variables: Exercise 2.28 extended}
+
+Recall $v^*$ is the assignment with $v^*(p)=\lnot v(p)$ on variables (a truth
+assignment by Theorem 2.2), and $\varphi^*$ is defined by the stated recursion
+(each variable negated, connectives unchanged).
+
+\solpart{a} \textbf{Claim.} $v(\varphi)=v^*(\varphi^*)$ for every truth assignment
+$v$ and formula $\varphi$. Fix $v$ (hence $v^*$) and induct on the length of
+$\varphi$; IH: this holds for all formulas of length $\le n$.
+
+\emph{Base ($\varphi=p$).} $\varphi^*=\lnot p$, so
+\[
+v^*(\varphi^*)=v^*(\lnot p)=\lnot v^*(p)=\lnot(\lnot v(p))=v(p)=v(\varphi),
+\]
+using that $v^*$ respects $\lnot$ and the definition $v^*(p)=\lnot v(p)$.
+
+\emph{Step.}
+\begin{itemize}[nosep]
+\item $\varphi=\lnot\theta$: $\varphi^*=\lnot\theta^*$, so
+$v^*(\varphi^*)=\lnot v^*(\theta^*)=\lnot v(\theta)=v(\lnot\theta)=v(\varphi)$,
+by the $\lnot$-clause (for $v^*$ and for $v$) and the IH on $\theta$.
+\item $\varphi=(\theta\to\psi)$: $\varphi^*=(\theta^*\to\psi^*)$. Both
+$v^*(\varphi^*)$ and $v(\varphi)$ are read off the \emph{same} $\to$-table, the
+former from $(v^*(\theta^*),v^*(\psi^*))$ and the latter from $(v(\theta),v(\psi))$;
+by the IH these input pairs coincide, so the outputs coincide.
+\item $\varphi=(\theta\leftrightarrow\psi)$: identical, using the
+$\leftrightarrow$-table.
+\item $\land,\lor$ similar.
+\end{itemize}
+(The key structural point: $*$ negates variables but leaves each binary connective
+\emph{unchanged}, so at each step the two sides use the identical truth table.)
+\hfill$\square$
+
+\solpart{b} $(v^*)^*$ is the assignment with $(v^*)^*(p)=\lnot v^*(p)=\lnot(\lnot
+v(p))=v(p)$ for every variable $p$. So $(v^*)^*$ and $v$ are truth assignments
+agreeing on all variables; by the uniqueness half of Theorem 2.2 they are equal as
+functions on $\Form(P,S)$, i.e.\ $(v^*)^*=v$. Hence $v\mapsto v^*$ is its own
+inverse, so a bijection of the set of truth assignments onto itself.
+
+\solpart{c} \textbf{$\varphi$ tautology $\iff\varphi^*$ tautology.}
+($\Rightarrow$) Let $w$ be an arbitrary truth assignment; we show $w(\varphi^*)=\T$.
+Put $v:=w^*$ (a truth assignment). By (a), $v(\varphi)=v^*(\varphi^*)$, and by (b)
+$v^*=(w^*)^*=w$; so $w(\varphi^*)=v(\varphi)$. Since $\varphi$ is a tautology,
+$v(\varphi)=\T$, hence $w(\varphi^*)=\T$. As $w$ was arbitrary, $\varphi^*$ is a
+tautology.
+($\Leftarrow$) Let $w$ be arbitrary; by (a) with $v:=w$, $w(\varphi)=w^*(\varphi^*)$;
+since $\varphi^*$ is a tautology, $w^*(\varphi^*)=\T$, so $w(\varphi)=\T$.
+
+The quantifier point the problem asks for: in ($\Rightarrow$) we need
+$w(\varphi^*)$ for \emph{arbitrary} $w$, and (a) only directly gives values of the
+form $v^*(\varphi^*)$. This suffices precisely because $*$ is \emph{onto} (indeed a
+bijection, by (b)): every assignment $w$ equals $v^*$ for some $v$ --- namely
+$v=w^*$ --- so the universally quantified identity in (a) reaches every $w$.
+
+\solpart{d} \textbf{$\varphi$ contradiction $\iff\varphi^*$ contradiction}, no new
+induction. By Exercise 2.26, $\varphi$ is a contradiction iff $\lnot\varphi$ is a
+tautology. Also $(\lnot\varphi)^*=\lnot(\varphi^*)$ by the definition of $*$.
+Therefore
+\[
+\begin{aligned}
+\varphi\text{ contradiction}&\iff\lnot\varphi\text{ tautology}
+\overset{(c)}{\iff}(\lnot\varphi)^*\text{ tautology}\\
+&\iff\lnot(\varphi^*)\text{ tautology}\iff\varphi^*\text{ contradiction},
+\end{aligned}
+\]
+the middle step applying (c) to $\lnot\varphi$ and the last again by Exercise 2.26.
+
+\solpart{e} \textbf{True:} $v(\varphi^*)=v^*(\varphi)$ for all $v,\varphi$, with no
+new induction. Apply (a) to the assignment $u:=v^*$: $u(\varphi)=u^*(\varphi^*)$,
+i.e.\ $v^*(\varphi)=(v^*)^*(\varphi^*)=v(\varphi^*)$, using $(v^*)^*=v$ from (b).
+Reading the identity backwards, $v(\varphi^*)=v^*(\varphi)$.
+
+\prob{10}{$\star$ The substitution lemma}
+
+\solpart{a} By unique readability every formula falls under exactly one clause of
+the recursion: it is the variable $p$, or a variable $q\neq p$, or $\lnot\theta$
+for a unique $\theta$, or $(\theta\bin\psi)$ for a unique connective and unique
+$\theta,\psi$. Since the clauses never compete, $\varphi[\chi/p]$ is specified
+unambiguously --- the same definition-by-recursion justified by the existence half
+of Theorem 2.2.
+
+\solpart{b} \textbf{Claim.} $v(\varphi[\chi/p])=u(\varphi)$, where $u$ is the truth
+assignment with $u(p)=v(\chi)$ and $u(q)=v(q)$ for $q\neq p$. (Such $u$ exists and
+is unique by Theorem 2.2, applied to the function on variables sending $p\mapsto
+v(\chi)$ and $q\mapsto v(q)$.) Fix $v$ (hence $u$) and induct on the length of
+$\varphi$; IH: the identity holds for formulas of length $\le n$.
+
+\emph{Base, two subcases.}
+\begin{itemize}[nosep]
+\item $\varphi=p$: $\varphi[\chi/p]=\chi$, so $v(\varphi[\chi/p])=v(\chi)=u(p)=
+u(\varphi)$.
+\item $\varphi=q$, $q\neq p$: $\varphi[\chi/p]=q$, so $v(\varphi[\chi/p])=v(q)=
+u(q)=u(\varphi)$.
+\end{itemize}
+
+\emph{Step.}
+\begin{itemize}[nosep]
+\item $\varphi=\lnot\theta$: $\varphi[\chi/p]=\lnot(\theta[\chi/p])$, so
+$v(\varphi[\chi/p])=\lnot v(\theta[\chi/p])=\lnot u(\theta)=u(\lnot\theta)=
+u(\varphi)$, by the $\lnot$-clause and the IH.
+\item $\varphi=(\theta\to\psi)$: then $\varphi[\chi/p]=(\theta[\chi/p]\to
+\psi[\chi/p])$, and by the IH applied to $\theta$ and $\psi$,
+\[
+\big(v(\theta[\chi/p]),\,v(\psi[\chi/p])\big)=\big(u(\theta),\,u(\psi)\big).
+\]
+Reading both $v(\varphi[\chi/p])$ and $u((\theta\to\psi))$ off the $\to$-table from
+this common pair gives $v(\varphi[\chi/p])=u((\theta\to\psi))=u(\varphi)$.
+\item $\land,\lor,\leftrightarrow$ similar.
+\end{itemize}
+\hfill$\square$
+
+\solpart{c} If $\varphi$ is a tautology then, for every truth assignment $v$,
+$v(\varphi[\chi/p])=u(\varphi)=\T$ by (b) (with $u$ the assignment it names, itself
+a genuine truth assignment). As $v$ was arbitrary, $\varphi[\chi/p]$ is a
+tautology.
+
+\solpart{d} \textbf{The converse fails.} Take $\varphi=(p\lor q)$, substitute for
+$p$ the formula $\chi=\lnot q$. Then
+\[
+\varphi[\chi/p]=(\lnot q\lor q),
+\]
+which is a tautology: $w(\lnot q\lor q)=\lnot w(q)\lor w(q)=\T$ for every $w$. But
+$\varphi=(p\lor q)$ is \emph{not} a tautology: the assignment $w$ with $w(p)=\F$,
+$w(q)=\F$ gives $w((p\lor q))=\F\lor\F=\F$. So $\varphi[\chi/p]$ is a tautology
+while $\varphi$ is not.
+
+\solpart{e} By (b), the value of a formula built from $\varphi,\psi$ under $w$
+equals the value of the corresponding two-variable formula under the assignment
+sending $p\mapsto w(\varphi)$, $q\mapsto w(\psi)$; when $\varphi,\psi$ are distinct
+variables, Theorem 2.2 lets $(w(\varphi),w(\psi))$ be set to any of the four pairs
+independently, so every row of the schematic table is realized. When $\varphi,\psi$
+are correlated --- e.g.\ $\psi=\lnot\varphi$ as in Problem 6(d) --- the pair is
+constrained (there $w(\psi)=\lnot w(\varphi)$), so rows violating the constraint
+have no realizing assignment and drop out. In short, distinct metavariables need
+not be independently settable; only genuinely independent variables reach all rows.
+
+\section*{Part IV --- Tautologies, contradictions, counterexamples}
+
+\prob{11}{Calibration: true or false?}
+
+\solpart{a} \textbf{False.} Agreement at $\varphi$ does not force agreement at its
+variables. Take $\varphi=(p\lor q)$; let $u(p)=\T,u(q)=\T$ and $w(p)=\T,w(q)=\F$.
+Then $u(\varphi)=\T$ and $w(\varphi)=\T\lor\F=\T$, so $u(\varphi)=w(\varphi)$, yet
+$q\in\vars(\varphi)$ and $u(q)=\T\neq\F=w(q)$. (This is the \emph{converse} of
+relevance, and it is false.)
+
+\solpart{b} \textbf{False.} Any truth assignment respects $\land$:
+$v((p\land q))=v(p)\land v(q)$. If $v(q)=\F$ then $v(p)\land\F=\F\neq\T$. So no
+truth assignment does this.
+
+\solpart{c} \textbf{True.} A mere function need not respect $\land$. Define $f$ with
+$f((p\land q))=\T$, $f(q)=\F$, and $f$ arbitrary (say $\T$) elsewhere. This is a
+well-defined function with the two required values. (Contrast (b): the $\land$-clause
+is exactly what a function may flout but an assignment may not.)
+
+\solpart{d} \textbf{False.} Take $\varphi=p$. Then $p$ is not a tautology ($w(p)=\F$
+falsifies it), and $\lnot p$ is not a tautology either ($w(p)=\T$ gives $\lnot p=\F$).
+So ``$\varphi$ not a tautology'' does not make $\lnot\varphi$ one: $p$ is merely
+\emph{not forced true}, which is weaker than $\lnot p$ being \emph{forced true}.
+
+\solpart{e} \textbf{True.} By Exercise 2.26, $\lnot\varphi$ is a contradiction iff
+$\lnot\lnot\varphi$ is a tautology iff $\varphi$ is a tautology. Contrapositively,
+if $\varphi$ is not a tautology then $\lnot\varphi$ is not a contradiction.
+
+\solpart{f} \textbf{False.} Take $\varphi=p$, $\psi=\lnot p$: neither is a tautology
+($p$ fails at $w(p)=\F$; $\lnot p$ fails at $w(p)=\T$), yet $(\varphi\lor\psi)=
+(p\lor\lnot p)$ is a tautology.
+
+\solpart{g} \textbf{True.} For every $w$, $w((\varphi\land\psi))=w(\varphi)\land
+w(\psi)$; the $\land$-table yields $\T$ only when both conjuncts are $\T$. So if
+$(\varphi\land\psi)$ is a tautology, $w(\varphi)=\T$ for every $w$, i.e.\ $\varphi$
+is a tautology (and so is $\psi$).
+
+\solpart{h} \textbf{True.} ``$\varphi$ is a contradiction'' means $w(\varphi)=\F$
+for every $w$; its negation is that some $w$ has $w(\varphi)\neq\F$, hence (values
+being only $\T,\F$) $w(\varphi)=\T$. So a non-contradiction is made true by some
+assignment.
+
+\prob{12}{Around modus ponens: Exercise 2.27 revisited}
+
+\solpart{a} \textbf{True.} For every $w$, $w(\varphi)=\T$ and $w(\psi)=\T$ (both
+tautologies), so $w((\varphi\land\psi))=\T\land\T=\T$.
+
+\solpart{b} \textbf{True} (this is Problem 11(g), both conjuncts). For every $w$,
+$w(\varphi)\land w(\psi)=\T$ forces $w(\varphi)=w(\psi)=\T$; so both are tautologies.
+
+\solpart{c} \textbf{False.} Take $\varphi=p$, $\psi=\lnot p$. Then $(\varphi\lor
+\psi)=(p\lor\lnot p)$ is a tautology, but $\varphi=p$ is not ($w(p)=\F$) and
+$\psi=\lnot p$ is not ($w(p)=\T$). The disjunction is \emph{forced} true, yet
+neither disjunct is forced true --- the $2.27(c)$-style trap.
+
+\solpart{d} \textbf{True.} For every $w$: $\psi$ a contradiction gives $w(\psi)=\F$,
+and $(\varphi\to\psi)$ a tautology gives $w((\varphi\to\psi))=\T$. In the
+$\to$-table a value $\T$ with consequent $\F$ forces the antecedent $\F$; so
+$w(\varphi)=\F$. Thus $\varphi$ is a contradiction.
+
+\solpart{e} \textbf{True.} For every $w$: $w(\varphi)=\T$ ($\varphi$ a tautology)
+and $w(\varphi)=w(\psi)$ (from $(\varphi\leftrightarrow\psi)$ a tautology), so
+$w(\psi)=\T$. Hence $\psi$ is a tautology.
+
+\solpart{f} \textbf{False.} Take $\varphi=\psi=p$. Then $(\varphi\leftrightarrow
+\psi)=(p\leftrightarrow p)$ is a tautology ($w(p)\leftrightarrow w(p)=\T$ always),
+but $\varphi=p$ is not a tautology ($w(p)=\F$). The biconditional is forced true
+because the two sides are \emph{identical}, not because either is a tautology.
+
+\prob{13}{Forced, impossible, or independent}
+
+\solpart{a} \textbf{(I): $H$ forces $C$.} Suppose $\psi$ is a tautology. For every
+$w$, $w(\psi)=\T$, so $w((\varphi\to\psi))=w(\varphi)\to\T=\T$. Hence
+$(\varphi\to\psi)$ is a tautology --- for \emph{every} $\varphi$. Every instance of
+$H$ satisfies $C$.
+
+\solpart{b} \textbf{(III): $C$ is independent of $H$.} (This is Exercise 2.27(c).)
+We give two instances of $H$ --- both $(\varphi\to\psi)$ and $\psi$ tautologies.
+\begin{itemize}[nosep]
+\item \emph{$C$ holds.} $\varphi=(p\lor\lnot p)$, $\psi=(q\lor\lnot q)$. Check $H$:
+$\psi$ is a tautology; and $(\varphi\to\psi)$ is a tautology since its consequent
+$\psi$ is (for every $w$, $w((\varphi\to\psi))=w(\varphi)\to\T=\T$). Check $C$:
+$\varphi=(p\lor\lnot p)$ is a tautology. So this instance satisfies $C$.
+\item \emph{$C$ fails.} $\varphi=p$, $\psi=(q\lor\lnot q)$. Check $H$: $\psi$ is a
+tautology; and $(\varphi\to\psi)=(p\to(q\lor\lnot q))$ is a tautology (consequent
+always $\T$). Check $C$: $\varphi=p$ is \emph{not} a tautology, since $w(p)=\F$
+gives $w(p)=\F$. So this instance fails $C$.
+\end{itemize}
+Both satisfy $H$; one satisfies $C$ and one does not, so we are in case (III). The
+lesson: $(\varphi\to\psi)$ a tautology says only $w(\varphi)\to w(\psi)=\T$ for
+every $w$; when $w(\psi)=\T$ (which holds, as $\psi$ is a tautology) this is
+satisfied \emph{whatever} $w(\varphi)$ is, so $\varphi$ is left completely free.
+Object-level modus ponens fails to transfer to ``all assignments'' here.
+
+\solpart{c} \textbf{(I): $H$ forces $C$.} Suppose $\varphi$ is a contradiction. For
+every $w$, $w(\varphi)=\F$, so $w((\varphi\to\psi))=\F\to w(\psi)=\T$. Hence
+$(\varphi\to\psi)$ is a tautology, for every $\psi$. (\emph{Ex falso}: a false
+antecedent makes the implication vacuously true.)
+
+\solpart{d} \textbf{(II): $H$ forces the failure of $C$.} Suppose $\varphi$ is a
+contradiction. For every $w$, $w(\varphi)=\F$, so $w((\varphi\land\psi))=\F\land
+w(\psi)=\F$. Thus $(\varphi\land\psi)$ is false under every assignment; since at
+least one assignment exists (part (g)) and no formula is both a tautology and a
+contradiction (part (g)), $(\varphi\land\psi)$ is \emph{not} a tautology. So no
+instance of $H$ satisfies $C$. (Same $H$ as (c), opposite outcome: $\lnot$ makes
+$\to$ vacuously true but $\land$ vacuously false.)
+
+\solpart{e} \textbf{(II): $H$ forces the failure of $C$.} If $(\varphi\to\psi)$ is a
+contradiction then for every $w$, $w((\varphi\to\psi))=\F$; the only $\to$-row with
+value $\F$ is antecedent $\T$, consequent $\F$, so $w(\varphi)=\T$ and $w(\psi)=\F$
+for every $w$. In particular $\psi$ is a contradiction, hence (by (g), and since an
+assignment exists) not a tautology. So no instance of $H$ satisfies $C$. (Indeed
+$H$ here is very restrictive: it forces $\varphi$ to be a tautology and $\psi$ a
+contradiction.)
+
+\solpart{f} \textbf{(III): $C$ is independent of $H$.} (This upgrades Problem
+11(d).) Two instances of $H$ --- $\varphi$ not a tautology.
+\begin{itemize}[nosep]
+\item \emph{$C$ holds.} $\varphi=(p\land\lnot p)$, a contradiction, hence not a
+tautology (it is false under, e.g., $w(p)=\T$). Then $\lnot\varphi=\lnot(p\land
+\lnot p)$ is a tautology by Exercise 2.26. So $C$ holds.
+\item \emph{$C$ fails.} $\varphi=p$: not a tautology ($w(p)=\F$). And $\lnot\varphi
+=\lnot p$ is not a tautology ($w(p)=\T$ gives $\lnot p=\F$). So $C$ fails.
+\end{itemize}
+Both satisfy $H$; $C$ goes both ways, so (III). (``$\varphi$ not forced true'' is
+compatible both with $\varphi$ being contingent --- then $\lnot\varphi$ is also
+contingent --- and with $\varphi$ being a contradiction --- then $\lnot\varphi$ is
+a tautology. This is exactly why (III), not (II).)
+
+\solpart{g} \textbf{No formula is both a tautology and a contradiction.} Suppose
+$\varphi$ were both. As a tautology, $w(\varphi)=\T$ for every truth assignment $w$;
+as a contradiction, $w(\varphi)=\F$ for every $w$. It remains to know that
+\emph{there is} at least one truth assignment: take any function $v\colon P\to\TF$
+(for instance the constant $\T$), and by the \textbf{existence half of Theorem 2.2}
+it extends to a truth assignment $\ext{v}$. For that $\ext{v}$ we get
+$\T=\ext{v}(\varphi)=\F$, a contradiction. Hence no $\varphi$ is both. The proof
+uses the \emph{existence} half: were the space of assignments empty, ``true under
+all'' and ``false under all'' could hold vacuously at once, and the two notions
+would not be incompatible.
+
+\prob{14}{Characterizations: Exercise 2.31 revisited}
+
+\solpart{a} \textbf{Given $\varphi$ a tautology: $(\varphi\to\psi)$ is a tautology
+iff $\psi$ is a tautology.}
+($\Leftarrow$) If $\psi$ is a tautology then $w((\varphi\to\psi))=w(\varphi)\to\T=
+\T$ for every $w$ (this direction needs nothing about $\varphi$).
+($\Rightarrow$) Suppose $(\varphi\to\psi)$ and $\varphi$ are tautologies. For every
+$w$, $w(\varphi)=\T$ and $w((\varphi\to\psi))=\T$; the $\to$-row with antecedent
+$\T$ and value $\T$ has consequent $\T$, so $w(\psi)=\T$. Thus $\psi$ is a tautology.
+
+\solpart{b} \textbf{Given $\psi$ a tautology: $(\varphi\to\psi)$ is \emph{never} a
+contradiction.} If $\psi$ is a tautology then $w((\varphi\to\psi))=w(\varphi)\to\T=
+\T$ for every $w$, so $(\varphi\to\psi)$ is itself a tautology; being a tautology
+(and, by 13(g), not simultaneously a contradiction) it is not a contradiction, for
+any $\varphi$. Circumstances: none.
+
+\solpart{c} \textbf{Refuted: $\varphi,\psi$ need not be contradictions.} Take
+$\varphi=p$, $\psi=\lnot p$. Then $(\varphi\land\psi)=(p\land\lnot p)$ is a
+contradiction ($w(p)\land\lnot w(p)=\F$ always), but $\varphi=p$ is not ($w(p)=\T$
+gives $p=\T$) and $\psi=\lnot p$ is not ($w(p)=\F$ gives $\lnot p=\T$). (Dual to
+12(c): the conjunction forced false does not force either conjunct false.)
+
+\solpart{d} \textbf{$(\varphi\lor\psi)$ is a contradiction iff both $\varphi$ and
+$\psi$ are contradictions.}
+($\Rightarrow$) If $(\varphi\lor\psi)$ is a contradiction then $w((\varphi\lor\psi))
+=\F$ for every $w$; the only $\lor$-row with value $\F$ has both disjuncts $\F$, so
+$w(\varphi)=\F$ and $w(\psi)=\F$ for every $w$ --- both are contradictions.
+($\Leftarrow$) If both are contradictions then $w(\varphi)=w(\psi)=\F$, so
+$w((\varphi\lor\psi))=\F\lor\F=\F$, for every $w$. (Contrast (c): for $\lor$ the
+condition really does descend to each disjunct.)
+
+\solpart{e} \textbf{Refuted}, then characterized. Take $\varphi=p$, $\psi=\lnot p$:
+$(\varphi\leftrightarrow\psi)=(p\leftrightarrow\lnot p)$ is a contradiction ($w(p)
+\leftrightarrow\lnot w(p)=\F$ always), but neither $p$ nor $\lnot p$ is a
+contradiction. \emph{Characterization:} $(\varphi\leftrightarrow\psi)$ is a
+contradiction iff $w(\varphi)\neq w(\psi)$ for every truth assignment $w$ (i.e.\
+$\varphi$ and $\psi$ take opposite values everywhere; equivalently $\psi\equiv
+\lnot\varphi$). Indeed the $\leftrightarrow$-table gives $w((\varphi\leftrightarrow
+\psi))=\F$ exactly when $w(\varphi)\neq w(\psi)$; so $(\varphi\leftrightarrow\psi)$
+is false under \emph{every} $w$ iff $w(\varphi)\neq w(\psi)$ for every $w$.
+
+\prob{15}{Majority rule: Exercise 2.29 revisited}
+
+For a formula $\varphi$ write $T(\varphi)=\{v\in S:v(\varphi)=\T\}$; then
+$|T(\varphi)|+|T(\lnot\varphi)|=|S|$, and $\varphi\in D$ iff $|T(\varphi)|>|S|/2$.
+
+\solpart{a} For each $v\in S$, $v(\lnot\varphi)=\lnot v(\varphi)$, so $v\in
+T(\varphi)$ iff $v\notin T(\lnot\varphi)$; hence $|T(\lnot\varphi)|=|S|-|T(\varphi)|$.
+Because $|S|$ is odd, $|T(\varphi)|\neq|S|/2$ (no tie), so exactly one of
+$|T(\varphi)|>|S|/2$ and $|T(\lnot\varphi)|=|S|-|T(\varphi)|>|S|/2$ holds. Thus
+exactly one of $\varphi,\lnot\varphi$ is in $D$.
+
+\solpart{b} If $(\varphi\to\theta)$ is a tautology then every $v\in S$ has
+$v((\varphi\to\theta))=\T$, i.e.\ $v(\varphi)=\T\Rightarrow v(\theta)=\T$; hence
+$T(\varphi)\subseteq T(\theta)$. So $|T(\theta)|\ge|T(\varphi)|>|S|/2$, giving
+$\theta\in D$. (Tautological implication can only enlarge the true-set.)
+
+\solpart{c} Take the three assignments on $\{p,q\}$
+\[
+v_1:(p,q)=(\T,\T),\qquad v_2:(p,q)=(\T,\F),\qquad v_3:(p,q)=(\F,\F).
+\]
+Majority means at least $2$ of $3$.
+\begin{itemize}[nosep]
+\item $p\in D$: $p$ is true under $v_1,v_2$ --- $2$ of $3$. \checkmark
+\item $(p\to q)\in D$: $(p\to q)$ is true under $v_1$ ($\T\to\T$) and $v_3$
+($\F\to\F=\T$), false under $v_2$ ($\T\to\F$) --- $2$ of $3$. \checkmark
+\item $q\notin D$: $q$ is true only under $v_1$ --- $1$ of $3$, not a majority.
+\checkmark
+\end{itemize}
+So $p,(p\to q)\in D$ but $q\notin D$: majority rule is not closed under modus ponens.
+
+\solpart{d} \textbf{Refuted.} Take $\varphi=p$, $\psi=q$ and the three assignments
+\[
+v_1:(\T,\F),\qquad v_2:(\F,\T),\qquad v_3:(\T,\T).
+\]
+Then $p$ is true under $v_1,v_3$ ($2$ of $3$), so $p\in D$; $q$ is true under
+$v_2,v_3$ ($2$ of $3$), so $q\in D$; but $(p\land q)$ is true only under $v_3$
+($1$ of $3$), so $(p\land q)\notin D$. Hence $D$ need not be closed under $\land$.
+
+\solpart{e} Drop oddness. Take $|S|=2$ on $\{p\}$: $v_1(p)=\T$, $v_2(p)=\F$. For
+$\varphi=p$, $|T(p)|=1$, which is not $>|S|/2=1$, so $p\notin D$; likewise
+$|T(\lnot p)|=1$, so $\lnot p\notin D$. Neither $p$ nor $\lnot p$ is in $D$, so the
+conclusion of (a) fails (an even split is now possible).
+
+\solpart{f} \textbf{$|S|=1$: $D$ is closed under modus ponens.} Write $S=\{v\}$. A
+``majority'' of a one-element set is that one element, so $D=\{\varphi:v(\varphi)=
+\T\}$. If $\varphi\in D$ and $(\varphi\to\theta)\in D$ then $v(\varphi)=\T$ and
+$v((\varphi\to\theta))=\T$, i.e.\ $v(\varphi)\to v(\theta)=\T$; with $v(\varphi)=\T$
+the $\to$-table forces $v(\theta)=\T$, so $\theta\in D$.
+
+\emph{The step that breaks at $|S|=3$.} For a single assignment, ``$\varphi\in D$''
+and ``$(\varphi\to\theta)\in D$'' are witnessed by the \emph{same} $v$, which then
+also witnesses $\theta$: one assignment does all the work. For $|S|=3$, membership
+$\varphi\in D$ is carried by a majority $M_\varphi$ (size $\ge 2$) and
+$(\varphi\to\theta)\in D$ by a possibly \emph{different} majority
+$M_{\varphi\to\theta}$ (size $\ge 2$). Modus ponens applies only to assignments in
+$M_\varphi\cap M_{\varphi\to\theta}$ --- those that make both $\varphi$ and
+$\varphi\to\theta$ true, and hence $\theta$ true --- but two $2$-element majorities
+of a $3$-element set can meet in just \emph{one} assignment, which is not a
+majority. That is exactly what (c) exploits: $M_p=\{v_1,v_2\}$ and $M_{p\to q}=
+\{v_1,v_3\}$ meet only in $\{v_1\}$, so only $v_1$ is forced to make $q$ true ---
+$1$ of $3$, not enough for $q\in D$.
+
+\section*{Part V --- Capstone}
+
+\prob{16}{$\star$ Repetition-free formulas: Exercise 2.30 generalized}
+
+\solpart{a} \textbf{Gluing Lemma.} Let $\theta,\psi$ share no variable, and let
+$u,w$ be truth assignments (say on a common $\Form(P,S)$ with $\vars(\theta)\cup
+\vars(\psi)\subseteq P$). Define $x$ on the variables by
+\[
+x(r)=\begin{cases}
+u(r), & r\in\vars(\theta),\\
+w(r), & r\in\vars(\psi),\\
+\T, & \text{otherwise.}
+\end{cases}
+\]
+This is well-defined because $\vars(\theta)\cap\vars(\psi)=\varnothing$, so the
+first two clauses never conflict. By the \emph{existence half of Theorem 2.2}, $x$
+extends to a truth assignment $\ext{x}$ on $\Form(P,S)$. Now $\ext{x}$ agrees with
+$u$ on every variable of $\theta$, so by \emph{Problem 8(a)} (relevance),
+$\ext{x}(\theta)=u(\theta)$; likewise $\ext{x}$ agrees with $w$ on every variable
+of $\psi$, so $\ext{x}(\psi)=w(\psi)$. Renaming $\ext{x}$ as $x$, this is the
+required assignment. \hfill$\square$
+
+\solpart{b} \textbf{Claim.} Every repetition-free formula of $\Form(P,S)$ is made
+true by some assignment and false by some assignment. Induct on the length; IH:
+this holds for all repetition-free formulas of length $\le n$.
+
+\emph{Base ($\chi=p$).} A variable is repetition-free; $p\mapsto\T$ makes it true
+and $p\mapsto\F$ makes it false (both extend to assignments by Theorem 2.2).
+
+\emph{Step ($\chi$ repetition-free of length $n+1$).} First record two facts.
+(i) The immediate subformulas of $\chi$ are repetition-free: their variables form a
+subset of $\vars(\chi)$, and no variable repeats in $\chi$, so none repeats in a
+subformula. (ii) In the binary case $\chi=(\theta\bin\psi)$, $\vars(\theta)\cap
+\vars(\psi)=\varnothing$: a common variable would occur once in $\theta$ and once
+in $\psi$, hence at least twice in $\chi$, contradicting repetition-freeness. Also
+$\theta,\psi$ have length $\le n$.
+\begin{itemize}[nosep]
+\item $\chi=\lnot\theta$. By the IH there are assignments $a,b$ with $a(\theta)=\T$
+and $b(\theta)=\F$; then $a(\lnot\theta)=\F$ and $b(\lnot\theta)=\T$, so $\lnot
+\theta$ takes both values.
+\item $\chi=(\theta\bin\psi)$, $\bin\in\{\land,\lor,\to,\leftrightarrow\}$. By (ii)
+$\vars(\theta)\cap\vars(\psi)=\varnothing$, so the Gluing Lemma (a) applies: for
+\emph{any} target pair $(s,t)\in\TF\times\TF$ there is an assignment $x$ with
+$x(\theta)=s$ and $x(\psi)=t$ (take $u$ realizing $\theta=s$ and $w$ realizing
+$\psi=t$, available by the IH, and glue). Now the shared feature of all five
+connectives' truth tables is that \textbf{each output column is non-constant --- it
+contains at least one $\T$ and at least one $\F$}:
+\[
+\begin{array}{c|cccc}
+ & (\T,\T) & (\T,\F) & (\F,\T) & (\F,\F)\\\hline
+\land & \T & \F & \F & \F\\
+\lor & \T & \T & \T & \F\\
+\to & \T & \F & \T & \T\\
+\leftrightarrow & \T & \F & \F & \T
+\end{array}
+\]
+So some pair $(s,t)$ makes $(\theta\bin\psi)$ true and some other pair makes it
+false; gluing realizes each, giving assignments that make $\chi$ true and false.
+\end{itemize}
+This closes the induction. \hfill$\square$
+
+\solpart{c} \emph{Exercise 2.30.} A formula built from $\lnot$ and $\to$ with no
+repeated variable is repetition-free and uses connectives in $S$, so by (b) it is
+false under some assignment; hence it is not a tautology. \emph{Stronger conclusion
+delivered by the proof:} (b) shows such a formula is also true under some
+assignment, so it is neither a tautology nor a contradiction --- it is
+\emph{contingent}; and this holds for repetition-free formulas over the \emph{full}
+set $S=\Sfive$, not only the $\{\lnot,\to\}$ fragment. (A length-$0$ repetition-free
+formula, a single variable, is likewise contingent.)
+
+\solpart{d} Take $\chi=(p\to p)$, which repeats $p$. It is a tautology, so the
+conclusion of (b) --- false under some assignment --- fails for it. The step that
+breaks is the binary case: here $\theta=\psi=p$, so $\vars(\theta)\cap\vars(\psi)=
+\{p\}\neq\varnothing$, and the disjointness on which (b) relied does not hold.
+Consequently the Gluing Lemma does not apply, and the pair $(s,t)=(\T,\F)$ needed
+to make $(p\to p)$ false is \emph{unrealizable}: it would require an assignment with
+$x(p)=\T$ and $x(p)=\F$ at once. Only $(\T,\T)$ and $(\F,\F)$ occur, and $\to$ is
+true on both --- hence the tautology. The precise failing move is ``$\vars(\theta)
+\cap\vars(\psi)=\varnothing$, so all four $(s,t)$ are realizable.''
+
+\solpart{e} The freedom used in (a) --- setting $x(\theta)$ and $x(\psi)$ to any
+pair of values at once --- is available in (b) precisely because
+repetition-freeness makes $\vars(\theta)$ and $\vars(\psi)$ disjoint, so $\theta$
+and $\psi$ act like independent variables. In Problem 13(b) (Exercise 2.27(c))
+there is no such guarantee: $\varphi,\psi$ are arbitrary metavariables, and the map
+$w\mapsto(w(\varphi),w(\psi))$ may reach only some of the four value-pairs. Distinct
+metavariables are \emph{not} distinct propositional variables: $\varphi$ and $\psi$
+can share variables, or be logically related (e.g.\ $\psi=\lnot\varphi$, as in
+6(d)), or one can be pinned (e.g.\ $\psi$ a tautology, as in 13(b)) --- their values
+are computed downstream and may be correlated. When $\psi$ is forced true, the pair
+always has second coordinate $\T$, so the combination that would make $\varphi$ a
+tautology is simply never demanded, and $\varphi$ stays free. The analogy with
+independent variables is restored exactly when $\vars(\varphi)\cap\vars(\psi)=
+\varnothing$ --- or, more generally, when $w\mapsto(w(\varphi),w(\psi))$ is onto
+$\TF\times\TF$; that surjectivity is what gluing supplies for repetition-free
+formulas and what is missing in general.
+
+\bigskip
+\hrule
+\smallskip
+\noindent\emph{Three threads, one theorem.} The uniqueness half of Theorem 2.2
+drives every ``agreement'' result (1(e,g), 8, 9(b), and the determinacy in 5); the
+existence half is what lets you \emph{prescribe} values --- freely on the variables
+(2(d), 6, 7), across disjoint variable sets (16(a,b)), and even just to know an
+assignment exists at all (13(g)). The counterexample work (11, 12(c,f), 13(b,f),
+14(c,e), 15(c,d)) is the discipline of not importing the independence of distinct
+variables into arbitrary metavariables --- the single idea that 16(e) makes precise.
+
+\end{document}

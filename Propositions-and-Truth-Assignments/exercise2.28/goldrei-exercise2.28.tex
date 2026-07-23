@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+\noindent 2.28 For a formula $\phi$ built up using the connectives $\neg, \wedge, \vee$, let $\phi^*$ be constructed by replacing each propositional variable in $\phi$ by its negation. So if $\phi$ is the formula $((q \vee p) \wedge \neg p)$, $\phi^*$ is $((\neg q \vee \neg p) \wedge \neg\neg p)$.
+
+\begin{enumerate}
+    \item[(a)] For any truth assignment $v$, let $v^*$ be the truth assignment which gives each propositional variable the opposite value to that given by $v$, i.e.
+    \[
+        v^*(p) =
+        \begin{cases}
+            T, & \text{if } v(p) = F, \\
+            F, & \text{if } v(p) = T,
+        \end{cases}
+    \]
+    for all propositional variables $p$. Show that $v(\phi) = v^*(\phi^*)$. [\emph{Hint}: This is really a statement about all formulas $\phi$ of a certain sort, so what is the likely method of proof?]
+
+    \item[(b)]
+    \begin{enumerate}
+        \item[(i)] Use the result of part (a) to show that $\phi$ is a tautology if and only if $\phi^*$ is a tautology.
+        \item[(ii)] Is it true that $\phi$ is a contradiction if and only if $\phi^*$ is a contradiction? Explain your answer.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{proof}[proof of (a)]
+    We proceed by induction on the length of a formula
+
+    \textit{Base Case}: Suppose we have a formula, $\phi$, of length zero. So then $\phi$ is just a propositional variable, $p$. WLOG, let $v(p) = T$. Then $\phi^* = \neg p$. So then $v^* (\phi^*) = v^*(\neg p) = T$.
+
+    \textit{Induction Hypothesis}: For all formulas, $\phi$, of length $\leq n$, $v(\phi) = v^*(\phi^*)$.
+
+    \textit{Inductive Step}: Let $\phi$ be a formula of length $n + 1$. Since $n + 1 \geq 0$, we know that $\phi$ contains connective, so it isn't a propositional variable, so by the definition of formula it is one of these forms: $\neg \theta, (\theta \land \psi), (\theta \lor \psi)$.
+
+    \textit{Case $\phi = \neg \theta$}: 
+    
+    Then $\theta$ has length $\leq n$, so by the inductive hypothesis $v(\theta) = v^*(\theta^*)$.
+
+    By the definition of $*$, $\phi^* = \neg (\theta^*)$, so we want to show $v(\neg\theta) = v^* (\neg(\theta^*))$.
+    
+    Since the truth table for $\neg$ is symmetric under interchanging $T$ and $F$, WLOG suppose that $v(\theta) = v^* (\theta^*) = F$.
+    
+    So then $v(\phi) = v(\neg \theta) = T$.
+
+    Since $v^* (\theta^*) = F$, $v^*(\neg (\theta^*)) = T = v^*(\phi^*)$.
+
+    And so, $v(\neg\theta) = v^* (\neg(\theta^*))$, i.e., $v(\phi) = v^*(\phi^*)$.
+
+    %-----------------------------------------------------
+
+    % \textit{Case $\phi = (\theta \land \psi)$}:
+    
+    % Then $\theta$ and $\psi$ have length $\leq n$, so by the inductive hypothesis $v(\theta) = v^*(\theta^*)$ and $v(\psi) = v^*(\psi^*)$.
+
+    % By the definition of $*$, $\phi^* = (\theta^* \land \psi^*)$, so we want to show $v((\theta \land \psi)) = v^*((\theta^* \land \psi^*))$.
+
+
+    %-----------------------------------------------------
+    
+    \textit{Case $\phi = (\theta \lor \psi)$}: 
+
+    Then $\theta$ and $\psi$ have length $\leq n$, so the the inductive hypothesis $v(\theta) = v^*(\theta^*)$ and $v(\psi) = v^*(\psi^*)$.
+
+    By the definition of $*$, $\phi^* = (\theta^* \lor \psi^*)$, so we want to show $v((\theta \lor \psi)) = v^*((\theta^* \lor \psi^*))$.
+
+    Since the truth table for $\lor$ is symmetric under interchanging $T$ and $F$, WLOG suppose that $v(\theta) = v^* (\theta^*) = T$ and $v(\psi) = v^* (\psi^*) = F$.
+
+    So then $v(\phi) = v((\theta \lor \psi)) = T$.
+
+    But (this is where i get confused)
+    $v^*(\phi^*) = v^*((\theta^* \lor \psi^*)) = F$
+    
+    
+\end{proof}
+
+\end{document}

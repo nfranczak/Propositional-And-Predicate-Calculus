@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+(a) Show that if $\phi$ and $(\phi \rightarrow \psi)$ are tautologies, then $\psi$ is a tautology.
+\begin{proof}
+    Suppose that $\phi$ and $(\phi \rightarrow \psi)$ are tautologies.
+
+    Then for any truth assignment $v$ we have $v(\phi) = T$ and $v(\phi \rightarrow \psi) = T$.
+
+    For $v(\phi \rightarrow \psi) = T$ to hold given that the antecedent, $\phi$, is always true, it must be that the consequent, $\psi$, is always true.
+
+    Thus $v(\psi) = T$
+\end{proof}
+
+(b) is it the case that if $\phi$ and $\psi$ are tautologies, then $(\phi \rightarrow \psi)$ is a tautology?
+
+\begin{proof}
+    Suppose that $\phi$ and $\psi$ are tautologies.
+
+    Let $v$ be any truth assignment. Then $v(\phi) = T$ and $v(\psi) = T$.
+
+    Thus $v(\phi \rightarrow \psi) = T$, as $v$ respects the truth table for $\rightarrow$, which gives $T$ on $(T, T)$.
+
+    Since $v$ was arbitrary, $(\phi \rightarrow \psi)$ is a tautology, as desired.
+\end{proof}
+
+(c) It is the case that if $(\phi \rightarrow \psi)$ and $\psi$ are tautologies, then $\phi$ is a tautology?
+
+No. The claim is universally quantified over formulas, so we refute it by
+exhibiting particular formulas $\phi$ and $\psi$ for which both hypotheses
+hold and the conclusion fails.
+
+\begin{proof}[Counterexample]
+    Let $\phi$ be the propositional variable $p$ and let $\psi$ be the
+    formula $(p \rightarrow p)$.
+
+    \emph{$\psi$ is a tautology.} Let $v$ be any truth assignment. The pair
+    $(v(p), v(p))$ is either $(T, T)$ or $(F, F)$, and the truth table for
+    $\rightarrow$ gives $T$ on both inputs, so $v((p \rightarrow p)) = T$.
+    Since $v$ was arbitrary, $\psi$ is a tautology.
+
+    \emph{$(\phi \rightarrow \psi)$ is a tautology.} Let $v$ be any truth
+    assignment. By the above, $v(\psi) = T$. The truth table for
+    $\rightarrow$ gives $F$ only on the input $(T, F)$; since $v(\psi) = T$,
+    this input does not occur, so $v((\phi \rightarrow \psi)) = T$. Since
+    $v$ was arbitrary, $(\phi \rightarrow \psi)$ is a tautology.
+
+    \emph{$\phi$ is not a tautology.} By Theorem 2.2, any function from the
+    propositional variables to $\{T, F\}$ extends to a truth assignment, so
+    in particular there is a truth assignment $v$ with $v(p) = F$. Then
+    $v(\phi) = F$, so $\phi$ is not a tautology.
+
+    Thus $(\phi \rightarrow \psi)$ and $\psi$ are tautologies while $\phi$
+    is not, so the answer is no.
+\end{proof}
+
+\medskip
+\noindent\emph{Remark.} The second verification used nothing about $\phi$:
+whenever $v(\psi) = T$, the fatal input $(T, F)$ cannot occur. So if $\psi$
+is a tautology, then $(\phi \rightarrow \psi)$ is a tautology for
+\emph{every} formula $\phi$ — a strengthening of part (b). The first
+hypothesis of (c) is thus a consequence of the second and places no
+constraint on $\phi$ whatsoever.
+
+\begin{proof}[my version]
+    Suppose $(\phi \rightarrow \psi)$ and $\psi$ are tautologies. Let $\phi$ be a propositional variable. Since $(\phi \rightarrow \psi)$ is a tautology it's range is just $\{ T \}$. We see that the preimage of the truth assignment for $\rightarrow$ contains input $\{ F, T \}$. So, it is not necessary for $\phi$ to be a tautology for $(\phi \rightarrow \psi)$ to be a tautology.
+\end{proof}
+
+\newpage
+(a) show that if $\phi$ and $(\phi \rightarrow \psi)$ are tautologies then $\psi$ is a tautology.
+\begin{proof}
+    Suppose $\phi$ and $(\phi \rightarrow \psi)$ are tautologies.
+
+    So let $v$ be any truth assignment.
+
+    By definition $v(\phi) = T$ and $v((\phi \rightarrow \psi)) = T$.
+
+    We see that $v((\phi \rightarrow \psi)) = F$ if and only if $v(\phi) = T$ and $v(\psi) = F$.
+
+    But since $v((\phi \rightarrow \psi)) = T$ and $v(\phi) = T$, $v(\psi) \neq F$ so $v(\psi) = T$.
+
+    Since $v$ was arbitrary, $\psi$ is a tautology.
+\end{proof}
+
+(b) is it the case that if $\phi$ and $\psi$ are tautologies, then $(\phi \rightarrow \psi)$ is a tautology?
+\begin{proof}
+    Suppose $\phi$ and $\psi$ are tautologies.
+
+    So let $v$ be any truth assignment.
+
+    By definition $v(\phi) = T$ and $v(\psi) = T$.
+
+    We see that $v((\phi \rightarrow \psi)) = F$ if and only if $v(\phi) = T$ and $v(\psi) = F$.
+
+    But since $v(\psi) = T$, we have $v(\psi) \neq F$, so $v((\phi \rightarrow \psi)) = T$.
+    
+    Since $v$ was arbitrary, $(\phi \rightarrow \psi)$ is a tautology.
+\end{proof}
+
+(c) It is the case that if $(\phi \rightarrow \psi)$ and $\psi$ are tautologies, then $\phi$ is a tautology?
+
+\begin{proof}
+    this can only be proved through a counter example :/
+\end{proof}
+
+
+\end{document}
+

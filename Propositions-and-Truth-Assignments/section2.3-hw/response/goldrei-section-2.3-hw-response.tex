@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+
+\newcommand{\Form}{\mathrm{Form}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\F}{\mathrm{F}}
+\newcommand{\TF}{\{\T,\F\}}
+\newcommand{\ext}[1]{\overline{#1}}
+\newcommand{\Sfive}{\{\lnot,\land,\lor,\to,\leftrightarrow\}}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+
+\title{goldei-section-2.3-hw-response}
+\author{Nicholas Frańczak}
+\date{July 2026}
+
+\begin{document}
+
+\begin{center}
+{\LARGE Problem Set: The Interpretation of Propositional Formulas}\\[4pt]
+{\large Goldrei \S 2.3, with emphasis on Theorem 2.2}
+\end{center}
+
+\bigskip
+
+\noindent\emph{Throughline.} Theorem 2.2 has two halves. Uniqueness says a truth
+assignment has no freedom beyond its values on the propositional variables;
+existence says that on the variables the freedom is total. Much of this sheet is
+about knowing which half you are using at any given moment --- and recognizing the
+situations in which neither is available.
+
+\subsection*{Ground rules}
+
+\begin{itemize}
+\item Notation and conventions follow Goldrei, Chapter 2: formulas are fully
+bracketed; the \emph{length} of a formula is the number of occurrences of
+connectives in it; for a function $v\colon P\to\TF$, $\ext{v}$ denotes the unique
+truth assignment extending $v$ given by Theorem 2.2. As in the book, ``all truth
+assignments'' abbreviates ``all truth assignments defined on a set of
+propositional variables including those appearing in the formulas at hand.''
+\item You may use without proof: Theorem 2.2, anything established in the book up
+to the end of \S 2.3, and any earlier problem on this sheet.
+\item \textbf{Refutation discipline.} To refute a claim of the form ``for all
+formulas $\varphi,\psi,\dots$'' you must produce a fully concrete instance:
+(i)~name a specific formula for each metavariable; (ii)~verify that your formulas
+satisfy \emph{every} hypothesis of the claim; (iii)~exhibit a specific truth
+assignment, by listing its values on the relevant propositional variables, and
+compute the truth values needed to show that the conclusion fails. An explanation
+of why a counterexample ought to exist is not a counterexample.
+\item Starred problems are harder.
+\end{itemize}
+
+\noindent\textbf{\underline{Theorem 2.2}}
+Let $P$ be a set of propositional variables, let $S$ be the set of connectives $\Sfive$ and let $v\colon P\to\TF$ be a function. Then there is a unique truth assignment $\bar{v}:\Form(P,S)\to\TF$ such that $\bar{v}(p) = v(p)$ for all $p \in P$.
+
+% unique is two claims wearing one word
+% 1. at least one X has P - this is the existence half
+% 2. at most one X has P - this is the uniqueness half
+
+\section*{Part I --- Reading Theorem 2.2}
+
+\begin{problem}[Reading the theorem precisely]Let $P$ be a set of propositional variables and $S = \Sfive$. For each statement
+below, decide whether it is true or false. Justify each verdict briefly; for false
+statements, follow the refutation discipline.
+
+\begin{enumerate}
+\item[(a)] For every function $v\colon P\to\TF$ there is at least one truth assignment $w$ with $w(p)=v(p)$ for all $p\in P$.
+
+\textbf{Response}:
+Let $v\colon P\to\TF$ be arbitrary.
+By the existence half of Theorem 2.2, there is a truth assignment $\bar{v}:\Form(P,S)\to\TF$ such that $\bar{v}(p) = v(p)$ for all $p \in P$; take $w = \bar{v}$.
+So (a) is true.
+
+%-------------------------------------
+
+\item[(b)] For every function $v\colon P\to\TF$ there is at most one truth assignment $w$ with $w(p)=v(p)$ for all $p\in P$.
+
+\textbf{Response}:
+Let $v\colon P\to\TF$ be arbitrary.
+Suppose $u$ and $w$ are both truth assignments with $u(p) = v(p)$ and $w(p) = v(p)$ for all $p \in P$.
+Then $u(p) = w(p)$ for all $p \in P$ so by the uniqueness half of Theorem 2.2 $u = w$.
+So (b) is true.
+
+%-------------------------------------
+
+\item[(c)] For every function $v\colon P\to\TF$ there is exactly one function $w\colon\Form(P,S)\to\TF$ with $w(p)=v(p)$ for all $p\in P$.
+
+\textbf{Response}:
+Let $P = \{ p \}$ and let $v(p) = \T$.
+By Theorem 2.2 there is a truth assignment $\ext{v}$ with $\ext{v}(p) = v(p) = \T$.
+Define $w \colon \Form(P, S) \to \TF$ by: $w(p) = \T$, $w(\neg p) = \T$, and $w(\varphi) = \ext{v}(\varphi)$ for every other formula $\varphi$.
+Let $\phi = \neg p$. Since $\ext{v}$ respects the truth table for $\neg$ and $\ext{v}(p) = \T$, we get $\ext{v}(\phi) = \F$, while $w(\phi) = \T$ by definition. So $w(\phi) \neq \ext{v}(\phi)$.
+Thus $\ext{v}$ and $w$ are two distinct functions $\Form(P,S)\to\TF$ agreeing with $v$ on $P$, so ``at most one'' fails.
+So (c) is false.
+
+%-------------------------------------
+
+\item[(d)] For every truth assignment $w\colon\Form(P,S)\to\TF$ there is exactly one function $v\colon P\to\TF$ such that $w=\ext{v}$.
+
+\textbf{Response}:
+Let $w$ be arbitrary.
+Define $v(p) = w(p)$ for all $p \in P$.
+By Theorem 2.2 $\ext{v}(p) = v(p)$ for all $p \in P$.
+So $\ext{v}(p) = w(p)$ for all $p \in P$.
+So by the uniqueness half of Theorem 2.2, $w=\ext{v}$.
+Suppose $w = \ext{v}_1$ and $w = \ext{v}_2$.
+Let $p \in P$ be arbitrary. Then
+\[
+v_1(p) = \ext{v}_1(p) = \ext{v}_2(p) = v_2(p),
+\]
+where the outer equalities hold by the defining property of the bar in Theorem 2.2 ($\ext{v_i}(p) = v_i(p)$), and the middle equality holds since both sides equal $w$. As $p$ was arbitrary, $v_1 = v_2$.
+Therefore (d) is true.
+
+
+%-------------------------------------
+
+\item[(e)] If $u,w$ are truth assignments with $u(p)=w(p)$ for all $p\in P$, then $u(\varphi)=w(\varphi)$ for all $\varphi\in\Form(P,S)$.
+
+\textbf{Response}:
+Both $u$ and $w$ extend the function $v \colon P\to\TF$ given by $v(p)=u(p)$ and $v(p)=w(p)$ for all $p \in P$.
+So by the uniqueness half of Theorem 2.2 $u = w$.
+So $u(\varphi)=w(\varphi)$ for all $\varphi\in\Form(P,S)$.
+Therefore (e) is true.
+
+%-------------------------------------
+
+\item[(f)] If $u$ is a truth assignment, $w\colon\Form(P,S)\to\TF$ is a function, and $u(p)=w(p)$ for all $p\in P$, then $w$ is a truth assignment.
+
+\textbf{Response}:
+Since $u$ is a truth assignment it extends $v \colon P\to\TF$.
+Suppose $P = \{ p \}$.
+Then let $v(p) = u(p) = w(p) = T$.
+Let $\phi \in \Form(P, S)$ be have length $\geq 1$ with $w(\phi) = T$
+Since $w$ is free to disobey the truth tables of the connectives found in $S$ it is a truth assignment.
+Thus (f) is false.
+
+% %-------------------------------------
+
+\item[(g)] If $u,w$ are truth assignments with $u(\varphi)=w(\varphi)$ for every formula $\varphi$ of length at least $1$, then $u=w$.
+
+\textbf{Response}:
+Let $u(\varphi)=w(\varphi)$ for all formulas $\varphi$ of length $\geq 1$, and towards a contradiction assume that there exists a $p \in P$ such that $w(p) \neq u(p)$.
+WLOG let $u(p) = \T$ and $w(p) = \F$.
+Since $u$ and $w$ respect the truth table for $\neg$, this forces $u(\neg p) = \F$ and $w(\neg p) = \T$, so $u(\neg p) \neq w(\neg p)$.
+But $\neg p$ has length $1$, so the hypothesis gives $u(\neg p) = w(\neg p)$, a contradiction.
+Therefore $u(p) = w(p)$ for all $p \in P$.
+So by (e), $u = w$.
+Therefore (g) is true.
+
+%-------------------------------------
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}[Extensions that are not truth assignments]
+Let $P=\{p\}$, $S=\Sfive$, and let $v\colon P\to\TF$ be given by $v(p)=\T$.
+\begin{enumerate}
+\item[(a)] Exhibit two distinct functions $f,g\colon\Form(P,S)\to\TF$ with
+$f(p)=g(p)=\T$, neither of which is a truth assignment. For each, name a specific
+formula at which it violates a specific truth-table clause, and verify the
+violation.
+
+\textbf{Response}:
+Suppose $P = \{ p \}$ with $f(p)=g(p)=\T$.
+For an arbitrary formula $\phi$ let $f(\phi) = T$.
+Suppose $f(\neg p) = T$ which violates the truth table for $\neg$.
+For an arbitrary formula $\phi$ let $g(\phi) = T$ except for when $\phi = \neg\neg p$.
+Suppose $g(\neg\neg p) = F$ which also violates the truth table for $\neg$.
+
+
+%-------------------------------------
+
+\item[(b)] Show that there are infinitely many functions
+$\Form(P,S)\to\TF$ extending $v$.
+\textbf{Response}:
+
+
+%-------------------------------------
+
+
+\item[(c)] In light of (b), exactly how many truth assignments extend $v$? Which
+result are you citing?
+\textbf{Response}:
+
+
+%-------------------------------------
+
+
+\item[(d)] Prove that restriction to $P$ and the map $v\mapsto\ext{v}$ are
+mutually inverse bijections between the set of truth assignments on $\Form(P,S)$
+and the set of functions $P\to\TF$. Deduce that if $|P|=n$ then there are exactly
+$2^n$ truth assignments on $\Form(P,S)$ (cf.\ Exercise~2.19).
+\textbf{Response}:
+
+
+%-------------------------------------
+\end{enumerate}
+\end{problem}
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+
+\begin{document}
+
+(a) Use mathematical induction  on the length of a formula to show that the number of occurrences of the symbol $\land$ in a formula $\phi$ is less than or equal to the number of left brackets ( in the formula.
+
+Note: The length of $\phi$ is defined as the number of occurrences of connectives in $\phi$.
+
+\begin{proof}
+    
+    \underline{Base Case}: Suppose that the length of $\phi$ is 0. Then $\phi$ is just a propositional variable and has no occurrence of $\land$ or left brackets (.
+
+
+    \underline{Inductive Hypothesis}: Suppose that for every formula of length $\leq n$, the number of occurrences of the symbol $\land$ is less than or equal to the number of left brackets ( in the formula.
+
+    \underline{Inductive Step}: Let $\phi$ have length $n + 1$. Since $\phi$ has at least one connective, it cannot be a propositional variable, so by clause (ii) of the definition of a formula $\phi$ takes on one of these forms: $(\theta \land \psi), (\theta \lor \psi), (\theta \rightarrow \psi), (\theta \leftrightarrow \psi), \neg \theta$. 
+    
+    \textit{$\phi$ is of the form $(\theta \land \psi)$}: Then $\theta$ has length $\leq n$ since $\land$ accounts for one of the connectives in $\phi$. We know through the inductive hypothesis that the number of occurrences of the symbol $\land$ is less than or equal to the number of left brackets. Also $\psi$ has length $\leq n$ since $\land$ accounts for one of the connectives in $\phi$, so the same holds. So let the formula $\theta$ have $a$ occurrences of $\land$ and $b$ occurrences of the left bracket with $a \leq b$. Similarly, let the formula $\psi$ have $a'$ occurrences of $\land$ and $b'$ occurrences of the left bracket with $a' \leq b'$. So then the total number of occurrences of $\land$ in $\phi$ is $a + a' + 1$ and the total number of occurrences of the left bracket in $\phi$ is $b + b' + 1$. And so we have: $a + a' + 1 \leq b + b' + 1$ as desired.
+
+    \textit{$\phi$ is of the form $\neg \theta$}: As $\theta$ has length $\leq n$ since $\neg$ accounts for one of the connectives in $\phi$, let the formula $\theta$ have $a$ occurrences of $\land$ and $b$ occurrences of the left bracket with $a \leq b$ by the inductive hypothesis. Since $\neg \theta$ does not add any $\land$ or ( to the string, the number of occurrences of $\land$ and left brackets stays as $a \leq b$.
+
+    \textit{$\phi$ is of the form $(\theta \lor \psi)$}: Then as $\theta$ has length $\leq n$ since $\lor$ accounts for one of the connectives in $\phi$, we know through the inductive hypothesis that the number of occurrences of the symbol $\land$ is less than or equal to the number of left brackets. Also $\psi$ has length $\leq n$ since $\lor$ accounts for one of the connectives in $\phi$ so the same holds. So let the formula $\theta$ have $a$ occurrences of $\land$ and $b$ occurrences of the left bracket with $a \leq b$. Similarly, let the formula $\psi$ have $a'$ occurrences of $\land$ and $b'$ occurrences of the left bracket with $a' \leq b'$. So then the total number of occurrences of $\land$ in $\phi$ is $a + a'$ and the total number of occurrences of the left bracket in $\phi$ is $b + b' + 1$. And so we have: $a + a' \leq b + b' + 1$ as desired.
+
+    For the cases where $\phi$ is of the form $(\theta \rightarrow \psi), (\theta \leftrightarrow \psi)$ an identical argument applies as was made in $\phi$ is of the form $(\theta \lor \psi)$.
+
+    Therefore through the principle of mathematical induction we've shown that the number of occurrences of the symbol $\land$ in a formula $\phi$ is less than or equal to the number of left brackets ( in the formula.
+\end{proof}
+
+(b) Does the result of part (a) hold for the symbol $\neg$? Justify your answer.
+
+Consider the formula $\neg \phi$. Suppose $\phi$ is just a propositional variable. Then there is one occurrence of $\neg$ and there are zero occurrences of the left bracket (. Since $1 > 0$ the result of part (a) does not hold for the symbol $\neg$.
+
+
+\end{document}

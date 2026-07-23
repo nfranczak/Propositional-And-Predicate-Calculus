@@ -1,0 +1,448 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+
+\newcommand{\Form}{\mathrm{Form}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\F}{\mathrm{F}}
+\newcommand{\TF}{\{\T,\F\}}
+\newcommand{\ext}[1]{\overline{#1}}
+\newcommand{\Sfive}{\{\lnot,\land,\lor,\to,\leftrightarrow\}}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+
+\begin{document}
+
+\begin{center}
+{\LARGE Problem Set: The Interpretation of Propositional Formulas}\\[4pt]
+{\large Goldrei \S 2.3, with emphasis on Theorem 2.2}
+\end{center}
+
+\bigskip
+
+\noindent\emph{Throughline.} Theorem 2.2 has two halves. Uniqueness says a truth
+assignment has no freedom beyond its values on the propositional variables;
+existence says that on the variables the freedom is total. Much of this sheet is
+about knowing which half you are using at any given moment --- and recognizing the
+situations in which neither is available.
+
+\subsection*{Ground rules}
+
+\begin{itemize}
+\item Notation and conventions follow Goldrei, Chapter 2: formulas are fully
+bracketed; the \emph{length} of a formula is the number of occurrences of
+connectives in it; for a function $v\colon P\to\TF$, $\ext{v}$ denotes the unique
+truth assignment extending $v$ given by Theorem 2.2. As in the book, ``all truth
+assignments'' abbreviates ``all truth assignments defined on a set of
+propositional variables including those appearing in the formulas at hand.''
+\item You may use without proof: Theorem 2.2, anything established in the book up
+to the end of \S 2.3, and any earlier problem on this sheet.
+\item \textbf{Refutation discipline.} To refute a claim of the form ``for all
+formulas $\varphi,\psi,\dots$'' you must produce a fully concrete instance:
+(i)~name a specific formula for each metavariable; (ii)~verify that your formulas
+satisfy \emph{every} hypothesis of the claim; (iii)~exhibit a specific truth
+assignment, by listing its values on the relevant propositional variables, and
+compute the truth values needed to show that the conclusion fails. An explanation
+of why a counterexample ought to exist is not a counterexample.
+\item Starred problems are harder.
+\end{itemize}
+
+\section*{Part I --- Reading Theorem 2.2}
+
+\begin{problem}[Reading the theorem precisely]
+Let $P$ be a set of propositional variables and $S = \Sfive$. For each statement
+below, decide whether it is true or false. Justify each verdict briefly; for false
+statements, follow the refutation discipline.
+\begin{enumerate}
+\item[(a)] For every function $v\colon P\to\TF$ there is \emph{at least one} truth
+assignment $w$ with $w(p)=v(p)$ for all $p\in P$.
+\item[(b)] For every function $v\colon P\to\TF$ there is \emph{at most one} truth
+assignment $w$ with $w(p)=v(p)$ for all $p\in P$.
+\item[(c)] For every function $v\colon P\to\TF$ there is exactly one
+\emph{function} $w\colon\Form(P,S)\to\TF$ with $w(p)=v(p)$ for all $p\in P$.
+\item[(d)] For every truth assignment $w\colon\Form(P,S)\to\TF$ there is exactly
+one function $v\colon P\to\TF$ such that $w=\ext{v}$.
+\item[(e)] If $u,w$ are truth assignments with $u(p)=w(p)$ for all $p\in P$, then
+$u(\varphi)=w(\varphi)$ for all $\varphi\in\Form(P,S)$.
+\item[(f)] If $u$ is a truth assignment, $w\colon\Form(P,S)\to\TF$ is a function,
+and $u(p)=w(p)$ for all $p\in P$, then $w$ is a truth assignment.
+\item[(g)] If $u,w$ are truth assignments with $u(\varphi)=w(\varphi)$ for every
+formula $\varphi$ of length at least $1$, then $u=w$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Extensions that are not truth assignments]
+Let $P=\{p\}$, $S=\Sfive$, and let $v\colon P\to\TF$ be given by $v(p)=\T$.
+\begin{enumerate}
+\item[(a)] Exhibit two distinct functions $f,g\colon\Form(P,S)\to\TF$ with
+$f(p)=g(p)=\T$, neither of which is a truth assignment. For each, name a specific
+formula at which it violates a specific truth-table clause, and verify the
+violation.
+\item[(b)] Show that there are infinitely many functions
+$\Form(P,S)\to\TF$ extending $v$.
+\item[(c)] In light of (b), exactly how many truth assignments extend $v$? Which
+result are you citing?
+\item[(d)] Prove that restriction to $P$ and the map $v\mapsto\ext{v}$ are
+mutually inverse bijections between the set of truth assignments on $\Form(P,S)$
+and the set of functions $P\to\TF$. Deduce that if $|P|=n$ then there are exactly
+$2^n$ truth assignments on $\Form(P,S)$ (cf.\ Exercise~2.19).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[What unique readability is for]
+Work with strings over the alphabet $\{p,q,r,\land,\lor\}$ and \emph{no brackets}.
+Define the \emph{pseudo-formulas} to be the smallest class of strings such that
+each of $p,q,r$ is a pseudo-formula, and whenever $\alpha,\beta$ are
+pseudo-formulas, so are the strings $\alpha\land\beta$ and $\alpha\lor\beta$.
+Consider the string $\sigma$ given by $p\land q\lor r$.
+\begin{enumerate}
+\item[(a)] Exhibit two distinct construction trees for $\sigma$.
+\item[(b)] Let $v(p)=\F$, $v(q)=v(r)=\T$. Compute a truth value for $\sigma$
+bottom-up along each of your two trees, using the usual truth tables for $\land$
+and $\lor$. Conclude that the recursive clauses do \emph{not} determine a function
+from pseudo-formulas to $\TF$.
+\item[(c)] Identify the sentence in the existence half of Goldrei's proof of
+Theorem 2.2 that fails for pseudo-formulas, and explain exactly what goes wrong
+with it here.
+\item[(d)] Consider the attempted definition ``$\ext{v}(\sigma) :=$ the value
+computed from the decomposition of $\sigma$.'' Say precisely which of
+\emph{existence}, \emph{uniqueness}, and \emph{well-definedness} of $\ext{v}$ is
+threatened by (b), and explain how these three notions are related in this
+situation.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Adding a connective]
+Let $\oplus$ (``exclusive or'') be a new binary connective whose truth table is
+\[
+\begin{array}{cc|c}
+v(\theta) & v(\psi) & v((\theta\oplus\psi))\\ \hline
+\T & \T & \F\\
+\T & \F & \T\\
+\F & \T & \T\\
+\F & \F & \F
+\end{array}
+\]
+and let $S_{\oplus}=\{\lnot,\land,\lor,\to,\leftrightarrow,\oplus\}$.
+\begin{enumerate}
+\item[(a)] Write out the clause ``$v$ respects the truth table of $\oplus$'' in
+the style of \S 2.3.
+\item[(b)] State the analogue of Theorem 2.2 for the language
+$\Form(P,S_{\oplus})$.
+\item[(c)] Describe exactly what must be added or changed in each half of the
+proof --- the existence half and the uniqueness half --- to prove your statement
+from (b).
+\item[(d)] The proof relies on facts about $\Form(P,S_{\oplus})$ of the kind
+established for $\Form(P,S)$ in \S 2.2. Identify these facts precisely, and
+explain what would go wrong in your argument from (c) if the uniqueness of the
+principal connective failed for the enlarged language.
+\end{enumerate}
+\end{problem}
+
+\section*{Part II --- Computing with truth assignments}
+
+\begin{problem}[Bottom-up evaluation]
+Let $w$ be a truth assignment with $w(p)=\F$, $w(q)=\T$, $w(r)=\T$.
+\begin{enumerate}
+\item[(a)] Compute $w(((\lnot p\lor q)\to(r\land\lnot q)))$, listing the value of
+every subformula.
+\item[(b)] Compute $w(((p\to(q\to r))\leftrightarrow\lnot(p\lor\lnot r)))$,
+listing the value of every subformula.
+\end{enumerate}
+For (c) and (d), say that the information above \emph{determines} $w(\varphi)$ if
+every truth assignment $w$ satisfying $w(p)=\F$, $w(q)=\T$, $w(r)=\T$ gives
+$\varphi$ the same value. (Note that nothing has been said about $w(s)$.)
+\begin{enumerate}
+\item[(c)] Is $w(((q\land s)\lor r))$ determined? If so, compute it and justify;
+if not, exhibit two truth assignments consistent with the information above that
+give the formula different values.
+\item[(d)] Same question for $w(((q\land s)\land r))$.
+\item[(e)] Now suppose all you know is $w(p)=\T$. For each of
+$(p\lor q)$, $(p\land q)$, $(q\to p)$, $(q\lor\lnot q)$, $(q\land\lnot q)$,
+decide whether $w(\varphi)$ is determined, and justify as in (c) and (d).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Truth tables, concrete and schematic]
+\begin{enumerate}
+\item[(a)] Give the full truth table of $((p\lor\lnot q)\to(q\land r))$.
+\item[(b)] Give the truth table of $((\varphi\to\psi)\to\varphi)$ in terms of
+the truth values of the formulas $\varphi$ and $\psi$, as in Exercise 2.23.
+\item[(c)] Realize the row $(\varphi,\psi)=(\F,\T)$ of your table concretely:
+produce specific formulas $\varphi_0,\psi_0$ built from $p,q$ and a truth
+assignment $w$ (give its values on $p$ and $q$) with $w(\varphi_0)=\F$ and
+$w(\psi_0)=\T$, then confirm by computation that
+$w(((\varphi_0\to\psi_0)\to\varphi_0))$ agrees with your table.
+\item[(d)] Now take $\psi$ to be the formula $\lnot\varphi$. Which rows of your
+table in (b) remain realizable, and why do the others drop out? Show that
+$((\varphi\to\lnot\varphi)\to\varphi)$ is a tautology if and only if $\varphi$
+is a tautology, and a contradiction if and only if $\varphi$ is a contradiction.
+\item[(e)] Using truth tables or direct argument, classify each of the following
+as a tautology, a contradiction, or neither:
+\[
+((p\to q)\lor(q\to p)),\qquad
+(p\leftrightarrow\lnot p),\qquad
+((p\lor q)\to p),\qquad
+(\lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)).
+\]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Counting assignments]
+Let $n\ge 3$ and work with truth assignments on $\{p_1,\dots,p_n\}$. How many of
+the $2^n$ truth assignments make each of the following formulas true?
+\begin{enumerate}
+\item[(a)] $(p_1\land\lnot p_2)$
+\item[(b)] $\lnot((p_1\lor p_2)\lor p_3)$
+\item[(c)] $\lnot(p_1\to p_2)$
+\item[(d)] $((p_1\lor p_2)\land p_3)$, in the case $n=3$.
+\end{enumerate}
+Justify each count.
+\end{problem}
+
+\section*{Part III --- Inductions on the length of a formula}
+
+\begin{problem}[The relevance lemma]
+\begin{enumerate}
+\item[(a)] Prove: if $u,w$ are truth assignments and $\varphi\in\Form(P,S)$,
+$S=\Sfive$, is a formula such that $u(q)=w(q)$ for every propositional variable
+$q$ occurring in $\varphi$, then $u(\varphi)=w(\varphi)$. Use induction on the
+length of $\varphi$; write the base case and the cases $\lnot$, $\land$, $\to$ in
+full, declaring the remaining cases similar. Make your induction hypothesis
+explicit, and flag the exact steps at which you use that $u$ and $w$ respect the
+truth tables.
+\item[(b)] Deduce the statement of Exercise 2.18, together with its analogue for
+the full connective set $S$.
+\item[(c)] Deduce that the truth-table method is sound: if the propositional
+variables occurring in $\varphi$ are among $p_1,\dots,p_n$, then $\varphi$ is a
+tautology if and only if every one of the $2^n$ truth assignments on
+$\Form(\{p_1,\dots,p_n\},S)$ makes $\varphi$ true. Be careful: a truth assignment
+on $\{p_1,\dots,p_n\}$ and a truth assignment on a larger set $P$ of variables are
+functions with different domains, and part of your task is to bridge the two.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Negating the variables: Exercise 2.28 extended]
+For a truth assignment $v$, let $v^*$ be the truth assignment determined, via
+Theorem 2.2, by
+\[
+v^*(p)=\begin{cases}\T,&\text{if }v(p)=\F,\\[2pt] \F,&\text{if }v(p)=\T,\end{cases}
+\qquad\text{for all propositional variables }p.
+\]
+For $\varphi\in\Form(P,S)$, $S=\Sfive$, define $\varphi^*$ by recursion:
+$p^*=\lnot p$ for each variable $p$; $(\lnot\theta)^*=\lnot\theta^*$; and
+$(\theta\circ\psi)^*=(\theta^*\circ\psi^*)$ for each
+$\circ\in\{\land,\lor,\to,\leftrightarrow\}$. (As always, this definition is
+unambiguous thanks to unique readability.)
+\begin{enumerate}
+\item[(a)] Prove that $v(\varphi)=v^*(\varphi^*)$ for every truth assignment $v$
+and every formula $\varphi$, by induction on the length of $\varphi$. Write the
+base case and the cases $\lnot$, $\to$, $\leftrightarrow$ in full. (Exercise
+2.28(a) is the restriction of this statement to $\{\lnot,\land,\lor\}$.)
+\item[(b)] Show that $(v^*)^*=v$ \emph{as truth assignments}, being explicit about
+where Theorem 2.2 is used. Deduce that $v\mapsto v^*$ is a bijection from the set
+of truth assignments to itself.
+\item[(c)] Deduce that $\varphi$ is a tautology if and only if $\varphi^*$ is a
+tautology. Write the quantifier argument out in full: given an arbitrary truth
+assignment $w$, say exactly which assignment you feed into (a), and why every
+truth assignment arises in the required form.
+\item[(d)] Deduce, without any new induction, that $\varphi$ is a contradiction if
+and only if $\varphi^*$ is a contradiction.
+\item[(e)] Prove or refute, without any new induction:
+$v(\varphi^*)=v^*(\varphi)$ for every truth assignment $v$ and every formula
+$\varphi$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[$\star$ The substitution lemma]
+Fix a propositional variable $p$ and a formula $\chi$. For each formula
+$\varphi\in\Form(P,S)$, $S=\Sfive$, define the formula $\varphi[\chi/p]$
+(``$\varphi$ with $\chi$ substituted for $p$'') by recursion:
+\[
+p[\chi/p]=\chi;\qquad
+q[\chi/p]=q\ \text{ for each variable }q\ne p;\qquad
+(\lnot\theta)[\chi/p]=\lnot(\theta[\chi/p]);
+\]
+\[
+(\theta\circ\psi)[\chi/p]=(\theta[\chi/p]\circ\psi[\chi/p])
+\quad\text{for each }\circ\in\{\land,\lor,\to,\leftrightarrow\}.
+\]
+\begin{enumerate}
+\item[(a)] Explain in one or two sentences why this recursion specifies
+$\varphi[\chi/p]$ unambiguously, citing the relevant fact from \S 2.2.
+\item[(b)] Prove: for every truth assignment $v$,
+\[
+v(\varphi[\chi/p])=u(\varphi),
+\]
+where $u$ is the truth assignment determined by $u(p)=v(\chi)$ and $u(q)=v(q)$ for
+every variable $q\ne p$. (Which result guarantees that such a $u$ exists and is
+unique?) Use induction on the length of $\varphi$; write the base case --- both
+subcases --- and the cases $\lnot$ and $\to$ in full.
+\item[(c)] Deduce: if $\varphi$ is a tautology, then $\varphi[\chi/p]$ is a
+tautology, for every formula $\chi$.
+\item[(d)] Show that the converse of (c) fails, following the refutation
+discipline.
+\item[(e)] In at most three sentences, use (b) to explain the following
+phenomenon: in a schematic truth table such as the one in Problem 6(b), every row
+is realizable when $\varphi$ and $\psi$ are distinct propositional variables, yet
+rows can become unrealizable once $\varphi$ and $\psi$ are correlated, as in
+Problem 6(d).
+\end{enumerate}
+\end{problem}
+
+\section*{Part IV --- Tautologies, contradictions, counterexamples}
+
+\begin{problem}[Calibration: true or false?]
+For each claim, decide whether it is true or false. Give a short proof for each
+true claim; follow the refutation discipline for each false one. Here $u,w,v$
+range over truth assignments and $\varphi,\psi$ over formulas.
+\begin{enumerate}
+\item[(a)] If $u(\varphi)=w(\varphi)$ for some formula $\varphi$, then
+$u(q)=w(q)$ for every propositional variable $q$ occurring in $\varphi$.
+\item[(b)] There is a truth assignment $v$ with $v((p\land q))=\T$ and
+$v(q)=\F$.
+\item[(c)] There is a function $f\colon\Form(P,S)\to\TF$ with $f((p\land q))=\T$
+and $f(q)=\F$.
+\item[(d)] If $\varphi$ is not a tautology, then $\lnot\varphi$ is a tautology.
+\item[(e)] If $\varphi$ is not a tautology, then $\lnot\varphi$ is not a
+contradiction.
+\item[(f)] If neither $\varphi$ nor $\psi$ is a tautology, then
+$(\varphi\lor\psi)$ is not a tautology.
+\item[(g)] If $(\varphi\land\psi)$ is a tautology, then $\varphi$ is a tautology.
+\item[(h)] If $\varphi$ is not a contradiction, then some truth assignment makes
+$\varphi$ true.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Around modus ponens: Exercise 2.27 revisited]
+Let $\varphi,\psi$ be formulas. Prove or refute each of the following;
+refutations must follow the refutation discipline.
+\begin{enumerate}
+\item[(a)] If $\varphi$ and $\psi$ are tautologies, then $(\varphi\land\psi)$ is a
+tautology.
+\item[(b)] If $(\varphi\land\psi)$ is a tautology, then $\varphi$ and $\psi$ are
+both tautologies.
+\item[(c)] If $(\varphi\lor\psi)$ is a tautology, then $\varphi$ is a tautology or
+$\psi$ is a tautology.
+\item[(d)] If $(\varphi\to\psi)$ is a tautology and $\psi$ is a contradiction,
+then $\varphi$ is a contradiction.
+\item[(e)] If $(\varphi\leftrightarrow\psi)$ is a tautology and $\varphi$ is a
+tautology, then $\psi$ is a tautology.
+\item[(f)] If $(\varphi\leftrightarrow\psi)$ is a tautology, then $\varphi$ and
+$\psi$ are tautologies.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Forced, impossible, or independent]
+An \emph{instance} of a hypothesis $H$ about metavariables $\varphi,\psi$ is a
+choice of actual formulas for the metavariables under which $H$ holds. Given $H$
+and a conclusion $C$, exactly one of the following obtains:
+\begin{enumerate}
+\item[(I)] every instance of $H$ satisfies $C$ \quad (``$H$ forces $C$'');
+\item[(II)] no instance of $H$ satisfies $C$ \quad (``$H$ forces the failure of
+$C$'');
+\item[(III)] some instance of $H$ satisfies $C$ and some instance of $H$ does not
+\quad (``$C$ is independent of $H$'').
+\end{enumerate}
+Note the difference between (II) and the mere failure of (I): in case (III) the
+conclusion is not forced --- it can go either way --- whereas in case (II) it is
+forced to fail.
+
+For each pair below, decide which of (I), (II), (III) obtains. In cases (I) and
+(II), prove the forcing. In case (III), give \emph{two} fully concrete instances
+--- one where $C$ holds and one where it fails --- verifying in each instance
+every part of $H$ and the status of $C$, per the refutation discipline.
+\begin{enumerate}
+\item[(a)] $H$: $\psi$ is a tautology. \quad $C$: $(\varphi\to\psi)$ is a
+tautology.
+\item[(b)] $H$: $(\varphi\to\psi)$ and $\psi$ are tautologies. \quad $C$:
+$\varphi$ is a tautology.
+\item[(c)] $H$: $\varphi$ is a contradiction. \quad $C$: $(\varphi\to\psi)$ is a
+tautology.
+\item[(d)] $H$: $\varphi$ is a contradiction. \quad $C$: $(\varphi\land\psi)$ is a
+tautology.
+\item[(e)] $H$: $(\varphi\to\psi)$ is a contradiction. \quad $C$: $\psi$ is a
+tautology.
+\item[(f)] $H$: $\varphi$ is not a tautology. \quad $C$: $\lnot\varphi$ is a
+tautology.
+\item[(g)] Parts (d) and (e) tacitly use the fact that no formula is both a
+tautology and a contradiction. Prove this fact carefully. Which half of Theorem
+2.2 --- existence or uniqueness --- does your proof use?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Characterizations: Exercise 2.31 revisited]
+Let $\varphi,\psi$ be formulas.
+\begin{enumerate}
+\item[(a)] Suppose $\varphi$ is a tautology. Under what circumstances, if any, is
+$(\varphi\to\psi)$ a tautology? State and prove a characterization of the form
+``\dots\ if and only if \dots''.
+\item[(b)] Suppose $\psi$ is a tautology. Under what circumstances, if any, is
+$(\varphi\to\psi)$ a contradiction? Prove your answer.
+\item[(c)] If $(\varphi\land\psi)$ is a contradiction, must $\varphi$ or $\psi$ be
+a contradiction? Prove or refute.
+\item[(d)] Suppose $(\varphi\lor\psi)$ is a contradiction. State and prove the
+strongest conclusion you can about $\varphi$ and $\psi$, in the form of a
+characterization of when $(\varphi\lor\psi)$ is a contradiction.
+\item[(e)] If $(\varphi\leftrightarrow\psi)$ is a contradiction, must $\varphi$ or
+$\psi$ be a contradiction? Prove or refute. Then state and prove a
+characterization: $(\varphi\leftrightarrow\psi)$ is a contradiction if and only if
+\dots\ (a condition relating the values of $\varphi$ and $\psi$ under each truth
+assignment).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Majority rule: Exercise 2.29 revisited]
+Let $S$ be a finite set of truth assignments with $|S|$ odd, and let $D$ be the
+set of formulas made true by more than half of the members of $S$.
+\begin{enumerate}
+\item[(a)] Show that for every formula $\varphi$, exactly one of $\varphi$,
+$\lnot\varphi$ belongs to $D$.
+\item[(b)] Show that if $\varphi\in D$ and $(\varphi\to\theta)$ is a tautology,
+then $\theta\in D$.
+\item[(c)] Construct a set $S$ of three truth assignments on $\{p,q\}$ ---
+specify each assignment by its values on $p$ and $q$ --- such that $p\in D$ and
+$(p\to q)\in D$ but $q\notin D$. Verify all three memberships.
+\item[(d)] If $\varphi\in D$ and $\psi\in D$, must $(\varphi\land\psi)\in D$?
+Prove, or refute with a concrete $S$ and concrete formulas.
+\item[(e)] Now drop the requirement that $|S|$ is odd: exhibit a set $S$ with
+$|S|=2$ for which the conclusion of (a) fails.
+\item[(f)] Show that if $|S|=1$ then $D$ is closed under modus ponens: if
+$\varphi\in D$ and $(\varphi\to\theta)\in D$, then $\theta\in D$. Identify the
+precise step of your argument that breaks down when $|S|=3$, and explain how your
+example in (c) exploits exactly that gap.
+\end{enumerate}
+\end{problem}
+
+\section*{Part V --- Capstone}
+
+\begin{problem}[$\star$ Repetition-free formulas: Exercise 2.30 generalized]
+Call a formula \emph{repetition-free} if no propositional variable occurs more
+than once in it.
+\begin{enumerate}
+\item[(a)] \emph{(Gluing Lemma.)} Let $\theta$ and $\psi$ be formulas with no
+propositional variable in common, and let $u,w$ be truth assignments. Show that
+there is a truth assignment $x$ with $x(\theta)=u(\theta)$ and
+$x(\psi)=w(\psi)$. Define $x$ explicitly on the propositional variables, and cite
+Theorem 2.2 and Problem 8 at the precise points where each is used.
+\item[(b)] Prove by induction on length: every repetition-free formula of
+$\Form(P,S)$, $S=\Sfive$, is made true by some truth assignment and made false by
+some truth assignment. A complete proof should record why the immediate
+subformulas of a repetition-free formula are themselves repetition-free and, in
+the binary cases, have no variable in common; it should also identify the feature
+shared by the truth tables of all five connectives that makes the inductive step
+go through.
+\item[(c)] Deduce Exercise 2.30, and state the stronger conclusion that your proof
+of (b) actually delivers.
+\item[(d)] Exhibit a specific formula containing a repeated variable, and point to
+the specific step of your inductive argument in (b) that fails for it.
+\item[(e)] In one short paragraph: the freedom exploited in (a) is exactly what is
+\emph{not} available in Problem 13(b) (equivalently, Exercise 2.27(c)). Explain
+why distinct metavariables $\varphi,\psi$ need not behave like distinct
+propositional variables, and which conditions on $\varphi$ and $\psi$ would
+restore the analogy.
+\end{enumerate}
+\end{problem}
+
+\end{document}

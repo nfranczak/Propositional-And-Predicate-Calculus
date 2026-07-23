@@ -1,0 +1,175 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+\begin{bookthm}{2.3}
+The following are all logical equivalences.
+\begin{enumerate}[label=\textup{(\alph*)}]
+    \item $(\phi \land \psi) \equiv (\psi \land \phi)$ \quad (commutativity of $\land$)
+    \item $(\phi \lor \psi) \equiv (\psi \lor \phi)$ \quad (commutativity of $\lor$)
+    \item $(\phi \land \phi) \equiv \phi$ \quad (idempotence of $\land$)
+    \item $(\phi \lor \phi) \equiv \phi$ \quad (idempotence of $\lor$)
+    \item $(\phi \land (\psi \land \theta)) \equiv ((\phi \land \psi) \land \theta)$ \quad (associativity of $\land$)
+    \item $(\phi \lor (\psi \lor \theta)) \equiv ((\phi \lor \psi) \lor \theta)$ \quad (associativity of $\lor$)
+    \item $\neg\neg\phi \equiv \phi$ \quad (law of double negation)
+    \item $\neg(\phi \land \psi) \equiv (\neg\phi \lor \neg\psi)$ \quad (De Morgan's Law)
+    \item $\neg(\phi \lor \psi) \equiv (\neg\phi \land \neg\psi)$ \quad (De Morgan's Law)
+    \item $(\phi \land (\psi \lor \theta)) \equiv ((\phi \land \psi) \lor (\phi \land \theta))$ \quad (distributivity of $\land$ over $\lor$)
+    \item $(\phi \lor (\psi \land \theta)) \equiv ((\phi \lor \psi) \land (\phi \lor \theta))$ \quad (distributivity of $\lor$ over $\land$)
+    \item $(\phi \land (\psi \lor \phi)) \equiv \phi$ \quad (absorption law for $\land$)
+    \item $(\phi \lor (\psi \land \phi)) \equiv \phi$ \quad (absorption law for $\lor$)
+\end{enumerate}
+\end{bookthm}
+
+\begin{proof}[Proof of (a)]
+    Let $v$ be any truth assignment. WLOG if $v(\phi) = F$ and $\psi$'s truth value is free, then $v((\phi \land \psi)) = F = v((\psi \land \phi))$. If $v(\phi) = T = v(\psi)$, then $v((\phi \land \psi)) = T = v((\psi \land \phi))$. Thus, $(\phi \land \psi) \equiv (\psi \land \phi)$.
+\end{proof}
+
+\begin{proof}[Proof of (b)]
+    Let $v$ be any truth assignment. WLOG if $v(\phi) = T$ and $\psi$'s truth value is free, then $v((\phi \lor \psi)) = T = v((\psi \lor \phi))$. If $v(\phi) = F = v(\psi)$, then $v((\phi \lor \psi)) = F = v((\psi \lor \phi))$. Thus, $(\phi \lor \psi) \equiv (\psi \lor \phi)$.
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+    Let $v$ be any truth assignment. If $v(\phi) = F$ then $v((\phi \land \phi)) = F$. If $v(\phi) = T$ then $v((\phi \land \phi)) = T$. Thus, $(\phi \land \phi) \equiv \phi$.
+\end{proof}
+
+\begin{proof}[Proof of (d)]
+    Let $v$ be any truth assignment. If $v(\phi) = F$ then $v((\phi \lor \phi)) = F$. If $v(\phi) = T$ then $v((\phi \lor \phi)) = T$. Thus, $(\phi \lor \phi) \equiv \phi$.
+\end{proof}
+
+\begin{proof}[Proof of (e)]
+    Let $v$ be any truth assignment.
+    
+    ($\rightarrow$):
+    If $v((\phi \land (\psi \land \theta))) = T$, then $v(\phi) = T = v((\psi \land \theta))$ which gives $v(\psi) = T = v(\theta)$, so that $v((\phi \land \psi)) = T$, giving $v(((\phi \land \psi) \land \theta)) = T$.
+    
+    ($\leftarrow$):
+    Similarly, if $v(((\phi \land \psi) \land \theta)) = T$, then $v(\theta) = T = v((\phi \land \psi))$ which gives $v(\phi) = T = v(\psi)$, so that $v((\psi \land \theta)) = T$, giving $v((\phi \land (\psi \land \theta))) = T$.
+    
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v(((\phi \land \psi) \land \theta)) = F \Rightarrow v((\phi \land (\psi \land \theta))) = F$ while the contrapositive of the backwards direction is $v((\phi \land (\psi \land \theta))) = F \Rightarrow v(((\phi \land \psi) \land \theta)) = F$
+    
+    So that for all truth assignments $v$, $v((\phi \land (\psi \land \theta))) = v((\phi \land \psi) \land \theta)$ giving that $(\phi \land (\psi \land \theta)) \equiv ((\phi \land \psi) \land \theta)$.
+\end{proof}
+
+\begin{proof}[Proof of (f)]
+    Let $v$ be any truth assignment.
+
+    ($\rightarrow$):
+    If $v((\phi \lor (\psi \lor \theta))) = F$, then $v(\phi) = F = v((\psi \lor \theta))$ which gives $v(\psi) = F = v(\theta)$, so that $v((\phi \lor \psi)) = F$, giving $v(((\phi \lor \psi) \lor \theta)) = F$.
+
+    ($\leftarrow$):
+    Similarly, if $v(((\phi \lor \psi) \lor \theta)) = F$, then $v(\theta) = F = v((\phi \lor \psi))$ which gives $v(\phi) = F = v(\psi)$, so that $v((\psi \lor \theta)) = F$, giving $v((\phi \lor (\psi \lor \theta))) = F$.
+
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v(((\phi \lor \psi) \lor \theta)) = T \Rightarrow v((\phi \lor (\psi \lor \theta))) = T$ while the contrapositive of the backwards direction is $v((\phi \lor (\psi \lor \theta))) = T \Rightarrow v(((\phi \lor \psi) \lor \theta)) = T$.
+
+    So that for all truth assignments $v$, $v((\phi \lor (\psi \lor \theta))) = v(((\phi \lor \psi) \lor \theta))$ giving that $(\phi \lor (\psi \lor \theta)) \equiv ((\phi \lor \psi) \lor \theta)$.
+\end{proof}
+
+% (g) unchanged apart from the final period
+\begin{proof}[Proof of (g)]
+    Let $v$ be any truth assignment. Let $v(\phi) = T$. Then $v(\neg\phi) = F, v(\neg\neg\phi) = T$ as desired. Let $v(\phi) = F$. Then $v(\neg\phi) = T, v(\neg\neg\phi) = F$ as desired. So that for all truth assignments $v$, $v(\phi) = v(\neg\neg\phi)$ giving that $\phi \equiv \neg\neg\phi$.
+\end{proof}
+
+\begin{proof}[Proof of (h)]
+    Let $v$ be any truth assignment.
+
+    ($\rightarrow$):
+    If $v(\neg(\phi \land \psi)) = F$ then we know that $v((\phi \land \psi)) = T$ so $v(\phi) = v(\psi) = T$. Therefore $v(\neg\phi) = F = v(\neg\psi)$, thus $v((\neg \phi \lor \neg\psi)) = F$.
+
+    ($\leftarrow$):
+    Similarly, if $v((\neg \phi \lor \neg\psi)) = F$ then we know that $v(\neg\phi) = F = v(\neg\psi)$ and so $v(\phi) = T = v(\psi)$. Therefore $v((\phi \land \psi)) = T$, thus $v(\neg(\phi\land\psi)) = F$.
+
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v((\neg\phi \lor \neg\psi)) = T \Rightarrow v(\neg(\phi \land \psi)) = T$ while the contrapositive of the backwards direction is $v(\neg(\phi \land \psi)) = T \Rightarrow v((\neg\phi \lor \neg\psi)) = T$.
+
+    So that for all truth assignments $v$, $v(\neg(\phi \land \psi)) = v((\neg \phi \lor \neg\psi))$ giving that $\neg(\phi \land \psi) \equiv (\neg \phi \lor \neg\psi)$.
+\end{proof}
+
+\begin{proof}[Proof of (i)]
+    Let $v$ be any truth assignment.
+
+    ($\rightarrow$):
+    If $v(\neg(\phi \lor \psi)) = T$ then we know that $v((\phi \lor \psi)) = F$ so $v(\phi) = v(\psi) = F$. Therefore $v(\neg\phi) = T = v(\neg\psi)$, thus $v((\neg\phi \land \neg\psi)) = T$.
+
+    ($\leftarrow$):
+    Similarly, if $v((\neg\phi \land \neg\psi)) = T$ then we know that $v(\neg\phi) = T = v(\neg\psi)$ so $v(\phi) = v(\psi) = F$. Therefore, $v((\phi\lor\psi)) = F$, thus $v(\neg(\phi \lor \psi)) = T$.
+
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v((\neg\phi \land \neg\psi)) = F \Rightarrow v(\neg(\phi \lor \psi)) = F$ while the contrapositive of the backwards direction is $v(\neg(\phi \lor \psi)) = F \Rightarrow v((\neg\phi \land \neg\psi)) = F$.
+
+    So that for all truth assignments $v$, $v(\neg(\phi \lor \psi)) = v((\neg\phi \land \neg\psi))$ giving that $\neg(\phi \lor \psi) \equiv (\neg\phi \land \neg\psi)$.
+\end{proof}
+
+\begin{proof}[Proof of (j)]
+    Let $v$ be any truth assignment.
+
+    ($\rightarrow$):
+    If $v((\phi \land (\psi \lor \theta))) = T$ then we know that $v(\phi) = T = v((\psi\lor\theta))$. WLOG let $v(\psi) = T$ and the truth value of $\theta$ is free. Therefore we have $v((\phi \land \psi)) = T$ and so, $v(((\phi \land \psi) \lor (\phi \land \theta))) = T$.
+
+    ($\leftarrow$):
+    Similarly, let $v(((\phi \land \psi) \lor (\phi \land \theta))) = T$. WLOG, let $v((\phi \land \psi)) = T$ and let $v((\phi \land \theta))$ be free. From this we know that $v(\phi) = T = v(\psi)$ and the truth value of $\theta$ is free. Therefore, $v((\psi \lor \theta)) = T$ and so we have $v((\phi \land (\psi \lor \theta))) = T$.
+
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v(((\phi \land \psi) \lor (\phi \land \theta))) = F \Rightarrow v((\phi \land (\psi \lor \theta))) = F$ while the contrapositive of the backwards direction is $v((\phi \land (\psi \lor \theta))) = F \Rightarrow v(((\phi \land \psi) \lor (\phi \land \theta))) = F$.
+
+    So that for all truth assignments $v$, $v((\phi \land (\psi \lor \theta))) = v(((\phi \land \psi) \lor (\phi \land \theta)))$ giving that $(\phi \land (\psi \lor \theta)) \equiv ((\phi \land \psi) \lor (\phi \land \theta))$.
+\end{proof}
+
+\begin{proof}[Proof of (k)]
+    Let $v$ be any truth assignment.
+
+    ($\rightarrow$):
+    If $v((\phi \lor (\psi \land \theta))) = F$, then we know that $v(\phi) = F = v((\psi \land \theta))$. WLOG, let $v(\psi) = F$ and the truth value of $\theta$ is free. Thus we have $v((\phi \lor \psi)) = F$. Therefore, $v(((\phi \lor \psi) \land (\phi \lor \theta))) = F$.
+
+    ($\leftarrow$):
+    Similarly, let $v(((\phi \lor \psi) \land (\phi \lor \theta))) = F$. WLOG, let $v((\phi \lor \psi)) = F$ and the truth value of $(\phi \lor \theta)$ is free. Then $v(\phi) = F = v(\psi)$. Therefore, $v((\psi \land \theta)) = F$. Thus, $v((\phi \lor (\psi \land \theta))) = F$.
+
+    Since $v$ takes only the values $T$ and $F$, the contrapositive of the forwards direction is $v(((\phi \lor \psi) \land (\phi \lor \theta))) = T \Rightarrow v((\phi \lor (\psi \land \theta))) = T$ while the contrapositive of the backwards direction is $v((\phi \lor (\psi \land \theta))) = T \Rightarrow v(((\phi \lor \psi) \land (\phi \lor \theta))) = T$.
+
+    So for all truth assignments $v$, $v((\phi \lor (\psi \land \theta))) = v(((\phi \lor \psi) \land (\phi \lor \theta)))$ giving that $(\phi \lor (\psi \land \theta)) \equiv ((\phi \lor \psi) \land (\phi \lor \theta))$.
+\end{proof}
+
+\begin{proof}[Proof of (l)]
+    Let $v$ be any truth assignment.
+
+    If $v(\phi) = T$, then $v((\psi \lor \phi)) = T$, so that $v((\phi \land (\psi \lor \phi))) = T$.
+
+    If $v(\phi) = F$, then $v((\phi \land (\psi \lor \phi))) = F$.
+
+    So that for all truth assignments $v$, $v((\phi \land (\psi \lor \phi))) = v(\phi)$ giving that $(\phi \land (\psi \lor \phi)) \equiv \phi$.
+\end{proof}
+
+\begin{proof}[Proof of (m)]
+    Let $v$ be any truth assignment.
+
+    If $v(\phi) = T$, then $v((\phi \lor (\psi \land \phi))) = T$.
+
+    If $v(\phi) = F$, then $v((\psi \land \phi)) = F$, so that $v((\phi \lor (\psi \land \phi))) = F$.
+
+    So that for all truth assignments $v$, $v((\phi \lor (\psi \land \phi))) = v(\phi)$ giving that $(\phi \lor (\psi \land \phi)) \equiv \phi$.
+\end{proof}
+
+\end{document}

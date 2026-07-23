@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+2.30 Prove that any formula built up from $\neg$ and $\to$ in which no propositional variable occurs more than once cannot be a tautology.
+
+\begin{proof}
+We proceed through induction on the length of a formula.
+
+\underline{Base Case:} A formula of length zero is just composed of a single propositional variable, call is $p$. It is clear that the truth table for $p$ has two rows where the first truth value is $T$ while the second is $F$. Thus a formula of length zero is not a tautology.
+
+\underline{Inductive Hypothesis:} All formulas built up from $\neg$ and $\to$ in which no propositional variable occurs more than once of length less than or equal to $n$ are neither tautologies nor contradictions. That is, there exists one row in the truth table which gives the described a truth value of $F$.
+
+\underline{Inductive Step:} Let $\phi$ be a formula of length $n+1$. Thus $\phi$ has a unique principal connective so it of one of these forms: $\neg \theta$ or $\theta \to \psi$.
+
+\underline{Case $\neg \theta$}: Suppose $\phi = \neg \theta$. Then $\theta$ has length less than or equal to $n$. By the inductive hypothesis the row(s) which made $\theta$ T are flipped to F and vice-versa.
+
+\underline{Case $\theta \to \psi$:} Suppose $\phi = \theta \to \psi$. So both $\theta$ and $\psi$ have length less than or equal to $n$ hence inductive hypothesis applies to them. Since both $\theta$ and $\psi$ do not share any propositional variables, there is a row in the truth table in which both $\theta$ is true and $\psi$ is false making $\phi$ false. Similarly, all the other rows of the truth table would make $\phi$ true.
+
+    
+\end{proof}
+
+\end{document}
