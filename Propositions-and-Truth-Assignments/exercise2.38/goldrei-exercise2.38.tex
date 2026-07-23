@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+2.38 Establish each of the following equivalences, where $\phi, \psi, \theta$, and all the $\theta_i$ are formulas.
+
+(a) $((\phi \land \psi) \lor \neg\theta) \equiv ((\phi \lor \neg\theta) \land (\psi \lor \neg\theta))$
+
+(b) $(\phi \to \neg\psi) \equiv (\psi \to \neg\phi)$
+
+(c) $(\theta \to (\phi \lor \psi)) \equiv (\phi \lor (\psi \lor \neg\theta))$
+
+(d) $((\theta_1 \land \theta_2) \land (\theta_3 \land \theta_4)) \equiv (\theta_1 \land ((\theta_2 \land \theta_3)) \land \theta_4))$
+
+\begin{proof}[Proof of (a)]
+    \begin{align*}
+        ((\phi \land \psi) \lor \neg\theta)
+            &\equiv (\neg\theta \lor (\phi \land \psi)) && \text{(by Theorem 2.3(b))}\\
+        &\equiv \; ((\neg\theta \lor \phi) \land (\neg\theta \lor \psi)) && \text{(by Theorem 2.3(k) and transitivity)}
+    \end{align*}
+    
+    But
+
+    $(\neg\theta \lor \phi) \equiv (\phi \lor \neg\theta)$ and $(\neg\theta \lor \psi \equiv (\psi \lor \neg\theta)$
+
+    by Theorem 2.3(b) so Exercise 2.37(b)
+
+    $((\neg\theta \lor \phi) \land (\neg\theta \lor \psi)) \equiv ((\phi \lor \neg\theta) \land (\psi \lor \neg\theta))$.
+
+    Then by transitivity of logical equivalence,
+
+    $((\phi \land \psi) \lor \neg\theta) \equiv ((\phi \lor \neg\theta) \land (\psi \lor \neg\theta))$
+    
+    
+\end{proof}
+
+% ----------------------------
+
+\begin{proof}[Proof of (b)]
+    One of the logical equivalences Theorem 2.4(a) states is: $(\phi \to \psi) \equiv (\neg\psi \to \neg\phi)$.
+
+    Treating the formulas above as metavariables and substituting $\phi \mapsto \phi, \psi \mapsto \neg\psi$ uniformly on both sides we arrive at
+    $(\phi \to \neg\psi) \equiv (\neg\neg\psi \to \neg\phi)$.
+
+    Theorem 2.3 (g) states the law of double negation which is $\neg\neg\phi \equiv \phi$. Substituting $\phi \mapsto \psi$ uniformly on both sides we arrive at $\neg\neg\psi \equiv \psi$.
+
+    So then by exercise 2.37(d) $(\neg\neg\psi \to \neg\phi) \equiv (\psi \to \neg\phi)$ and transitively we get $(\phi \to \neg\psi) \equiv (\psi \to \neg\phi)$.
+\end{proof}
+
+% ----------------------------
+
+\begin{proof}[Proof of (c)]
+    One of the logical equivalences Theorem 2.4(a) states is: $(\phi \to \psi) \equiv (\neg\phi \lor \psi)$.
+
+    Treating the above formulas as metavariables and substituting $\phi \mapsto \theta, \psi \mapsto (\phi \lor \psi)$ uniformly on both sides we arrive at $(\theta \to (\phi \lor \psi)) \equiv (\neg\theta \lor (\phi \lor \psi))$.
+
+    By Theorem 2.3 (b) we have commutativity of $\lor$ so, $(\neg\theta \lor (\phi \lor \psi)) \equiv ((\phi \lor \psi) \lor \neg\theta)$.
+
+    By Theorem 2.3 (f) we have associativity of $\lor$, so together with symmetry, $((\phi \lor \psi) \lor \neg\theta) \equiv (\phi \lor (\psi \lor \neg\theta))$.
+
+    Lastly by transitivity we arrive at $(\theta \to (\phi \lor \psi)) \equiv (\phi \lor (\psi \lor \neg\theta))$.
+\end{proof}
+
+% ----------------------------
+
+\begin{proof}[Proof of (d)]
+    By Theorem 2.3 (e) we have $(\phi \land (\psi \land \theta)) \equiv ((\phi \land \psi) \land \theta)$.
+
+    Then by symmetry we have $((\phi \land \psi) \land \theta) \equiv (\phi \land (\psi \land \theta))$.
+
+    Treating the above formulas as metavariables and substituting $\phi \mapsto \theta_1, \psi \mapsto \theta_2, \theta \mapsto (\theta_3 \land \theta_4)$ uniformly on both sides we get $((\theta_1 \land \theta_2) \land (\theta_3 \land \theta_4)) \equiv (\theta_1 \land (\theta_2 \land (\theta_3 \land \theta_4)))$.
+
+    By Theorem 2.3 (e) once again, substituting $\phi \mapsto \theta_2, \psi \mapsto \theta_3, \theta \mapsto \theta_4$ uniformly on both sides we get $(\theta_2 \land (\theta_3 \land \theta_4)) \equiv ((\theta_2 \land \theta_3) \land \theta_4)$. Then by Exercise 2.37(b) (with $\theta_1 \equiv \theta_1$, from Exercise 2.35(a)), $(\theta_1 \land (\theta_2 \land (\theta_3 \land \theta_4))) \equiv (\theta_1 \land ((\theta_2 \land \theta_3) \land \theta_4))$.
+
+    Lastly by transitivity we arrive at $((\theta_1 \land \theta_2) \land (\theta_3 \land \theta_4)) \equiv (\theta_1 \land ((\theta_2 \land \theta_3) \land \theta_4))$.
+\end{proof}
+
+\end{document}
+
