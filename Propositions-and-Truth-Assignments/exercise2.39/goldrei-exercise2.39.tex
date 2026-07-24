@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+% Theorem with manually specified number, to match Goldrei's numbering
+\theoremstyle{plain}
+\newtheorem{bookthminner}{Theorem}
+\newenvironment{bookthm}[1]
+  {\renewcommand\thebookthminner{#1}\bookthminner}
+  {\endbookthminner}
+
+\newcommand{\T}[0]{\mathcal{T}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\C}[0]{\mathcal{C}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\e}[0]{\epsilon}
+
+\begin{document}
+
+\noindent 2.38 Suppose that the formula $\phi$ is constructed by taking subformulas $\theta_1, \theta_2, ... , \theta_n$ in that order and joining them together only using the connective $\land$, with brackets inserted in such a way as to make $\phi$ a formula. Show that $\phi$ is true precisely for those truth assignments which make each of the subformulas $\theta_1, \theta_2, ... , \theta_n$ true. Deduce that any two such formulas (using the same $\theta_1, \theta_2, ... , \theta_n$ in that order) are logically equivalent. [\textit{Hint:} Use the version of mathematical induction with the hypothesis that the result holds for all $k \leq n$ where $n \geq 1$.]
+
+% I need to show;
+% 1. what we're inducting on
+% 2. how \phi is built
+% 3. what P(n) is (where P(n) is some property and n is some number)
+
+\begin{proof}
+    We proceed by induction on the number of $\theta$'s available in $\phi$.
+    $\phi$ is constructed by taking subformulas $\theta_1, \theta_2, ... , \theta_n$ in that order and joining them together only using the connective $\land$, with brackets inserted in such a way as to make $\phi$ a formula.
+    We will show $\phi$ is true precisely for those truth assignments which make each of the subformulas $\theta_1, \theta_2, ... , \theta_n$ true.
+    
+    \underline{Base Case:}
+    Suppose that $\phi = \theta_1$. Let $v$ be any truth assignment. Therefore $v(\phi) = T \iff v(\theta_1) = T$.
+
+    \underline{Inductive Hypothesis:}
+    Let $n \geq 1$. Suppose that for every $k \leq n$ the following holds: if $\psi$ is a formula built from the formulas $\psi_1, \psi_2, \ldots, \psi_k$ in that order, joined only by the connective $\land$ with brackets inserted in such a way as to make $\psi$ a formula, then for every truth assignment $v$,
+    \[
+        v(\psi) = T \iff v(\psi_j) = T \text{ for all } j \text{ with } 1 \leq j \leq k.
+    \]
+
+    \underline{Inductive Step:}
+    Let $\phi$ be built from the formulas $\theta_1, \theta_2, ..., \theta_n, \theta_{n+1}$ in that order, joined only by the connective $\land$ with brackets inserted in such a way as to make $\phi$ a formula.
+
+     $\phi$ has a principal connective, so let $\theta_i$ be immediately to the left of the principal connective and let $\theta_{i+1}$ be immediately to the right of the principal connective where $1 \leq i \leq n$.
+     
+     Therefore $\phi$ can be rewritten as $\phi = \alpha \land \beta$ where $\alpha$ is built from the formulas $\theta_1, \theta_2, ... , \theta_i$ and $\beta$ is built from the formulas $\theta_{i + 1}, ... , \theta_n, \theta_{n + 1}$ in that order, joined only by the connective $\land$ with brackets inserted in such a way as to make them each valid subformulas of $\phi$.yea
+
+     Since $i \leq n$ and $(n + 1) - i \leq n$ the inductive hypothesis applies to $\alpha, \beta$.
+
+     Let $v$ be any truth assignment. Since $\phi = \alpha \land \beta$, the truth table for $\land$ gives
+     \[
+         v(\phi) = T \iff v(\alpha) = T = v(\beta).
+     \]
+     By the inductive hypothesis with $k = i$ and $\psi_1, \ldots, \psi_i := \theta_1, \ldots, \theta_i$,
+     \[
+         v(\alpha) = T \iff v(\theta_j) = T \text{ for all } j \text{ with } 1 \leq j \leq i.
+     \]
+     By the inductive hypothesis with $k = (n+1) - i$ and $\psi_1, \ldots, \psi_{(n+1)-i} := \theta_{i+1}, \ldots, \theta_{n+1}$,
+     \[
+         v(\beta) = T \iff v(\theta_j) = T \text{ for all } j \text{ with } i+1 \leq j \leq n+1.
+     \]
+     Combining these three biconditionals,
+     \[
+         v(\phi) = T \iff v(\theta_j) = T \text{ for all } j \text{ with } 1 \leq j \leq n+1,
+     \]
+     which is precisely the claim for $n+1$. This completes the induction.
+\end{proof}
+
+\noindent\underline{Deduction:}
+Suppose $\phi$ and $\phi'$ are both built from the formulas $\theta_1, \theta_2, \ldots, \theta_n$ in that order, joined only by the connective $\land$ with brackets inserted in such a way as to make each a formula. Let $v$ be any truth assignment. By the result above applied to each formula,
+\[
+    v(\phi) = T \iff v(\theta_j) = T \text{ for all } j \text{ with } 1 \leq j \leq n \iff v(\phi') = T.
+\]
+If $v(\phi) = T$, then $v(\phi') = T$. If $v(\phi) = F$, then $v(\phi) \neq T$, so $v(\phi') \neq T$, and by bivalence $v(\phi') = F$. In either case $v(\phi) = v(\phi')$. Since $v$ was arbitrary, $\phi \equiv \phi'$.
+
+\end{document}
+
